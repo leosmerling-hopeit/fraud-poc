@@ -1,0 +1,117 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "0.0.1",
+    "title": "Fraud POC",
+    "description": "Fraud POC"
+  },
+  "paths": {
+    "/api/fraud-poc/0x0x1/data/make-sample-data": {
+      "get": {
+        "description": "Data: Make sample data",
+        "parameters": [
+          {
+            "name": "num_batches",
+            "in": "query",
+            "required": true,
+            "description": "Number of batches/files to make",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "batch_size",
+            "in": "query",
+            "required": true,
+            "description": "Number of rows per batch",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "batch_span_days",
+            "in": "query",
+            "required": true,
+            "description": "Number of time span in days for order_date in batch",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "X-Track-Request-Id",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Track-Request-Ts",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Ts",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job submitted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MakeSampleDataJob"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "fraud_poc.0x0x1"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MakeSampleDataJob": {
+        "type": "object",
+        "required": [
+          "path",
+          "num_batches",
+          "batch_size",
+          "batch_span_days"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "num_batches": {
+            "type": "integer"
+          },
+          "batch_size": {
+            "type": "integer"
+          },
+          "batch_span_days": {
+            "type": "integer"
+          }
+        },
+        "description": "MakeSampleDataJob(path: str, num_batches: int, batch_size: int, batch_span_days: int)"
+      }
+    },
+    "securitySchemes": {
+      "auth.basic": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "auth.bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": []
+}
