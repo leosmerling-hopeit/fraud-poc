@@ -1,0 +1,67 @@
+{
+    "app": {
+        "name": "fraud-poc",
+        "version": "0.0.1"
+    },
+    "env": {
+        "dask": {
+            "_url": "tcp://localhost:8786",
+            "url": "local"
+        },
+        "data" : {
+            "raw": "./data/raw",
+            "partitioned": "./data/partitioned",
+            "labeled": "./data/labeled",
+            "features": "./data/features"
+        },
+        "model": {
+            "path": "./data/model/xgb/bst.pkl"
+        }
+    },
+    "events": {
+        "data.make-sample-data" :{
+            "type": "GET",
+            "write_stream": {
+                "name": "{auto}"
+            },
+            "config" : {
+                "stream" : {
+                    "timeout": 3600,
+                    "target_max_len": 1
+                }
+            }
+        },
+        "data.preprocess" :{
+            "type": "STREAM",
+            "read_stream": {
+                "name": "{events.data.make-sample-data.write_stream.name}",
+                "consumer_group": "{auto}"
+            },
+            "write_stream": {
+                "name": "{auto}"
+            },
+            "config" : {
+                "stream" : {
+                    "timeout": 3600,
+                    "target_max_len": 1
+                }
+            }
+        },
+        "data.feature-calc" :{
+            "type": "STREAM",
+            "read_stream": {
+                "name": "{events.data.preprocess.write_stream.name}",
+                "consumer_group": "{auto}"
+            },
+            "write_stream": {
+                "name": "{auto}"
+            },
+            "config" : {
+                "stream" : {
+                    "timeout": 3600,
+                    "target_max_len": 1
+                }
+            }
+        }
+    }
+}

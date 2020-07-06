@@ -2,14 +2,23 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"MakeSampleDataJob": "01-create-sample-data.ipynb",
-         "__steps__": "01-create-sample-data.ipynb",
+index = {"get_client": "00_jobs.ipynb",
+         "MakeSampleDataJob": "00_jobs.ipynb",
+         "PreprocessingJob": "00_jobs.ipynb",
+         "FeatureCalcJob": "00_jobs.ipynb",
+         "__steps__": "03-feature-calc.ipynb",
          "__api__": "01-create-sample-data.ipynb",
-         "logger": "01-create-sample-data.ipynb",
-         "OrderRandomSource": "01-create-sample-data.ipynb"}
+         "logger": "03-feature-calc.ipynb",
+         "OrderRandomSource": "01-create-sample-data.ipynb",
+         "run": "03-feature-calc.ipynb",
+         "calculate": "03-feature-calc.ipynb",
+         "count_distinct_values": "03-feature-calc.ipynb",
+         "num_stats": "03-feature-calc.ipynb"}
 
-modules = ["dask_cluster.py",
-           "data/make_sample_data.py"]
+modules = ["jobs.py",
+           "data/make_sample_data.py",
+           "data/preprocess.py",
+           "data/feature_calc.py"]
 
 doc_url = "https://leosmerling.github.io/fraud_poc/"
 
