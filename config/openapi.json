@@ -38,6 +38,33 @@
             }
           },
           {
+            "name": "num_customers",
+            "in": "query",
+            "required": true,
+            "description": "Number of customers to generate",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "num_emails",
+            "in": "query",
+            "required": true,
+            "description": "Number of emails to generate",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "num_ips",
+            "in": "query",
+            "required": true,
+            "description": "Number of IP addresses to generate",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
             "name": "X-Track-Request-Id",
             "in": "header",
             "required": false,
@@ -83,7 +110,10 @@
           "path",
           "num_batches",
           "batch_size",
-          "batch_span_days"
+          "batch_span_days",
+          "num_customers",
+          "num_emails",
+          "num_ips"
         ],
         "properties": {
           "path": {
@@ -97,9 +127,18 @@
           },
           "batch_span_days": {
             "type": "integer"
+          },
+          "num_customers": {
+            "type": "integer"
+          },
+          "num_emails": {
+            "type": "integer"
+          },
+          "num_ips": {
+            "type": "integer"
           }
         },
-        "description": "MakeSampleDataJob(path: str, num_batches: int, batch_size: int, batch_span_days: int)"
+        "description": "MakeSampleDataJob(path: str, num_batches: int, batch_size: int, batch_span_days: int, num_customers: int, num_emails: int, num_ips: int)"
       }
     },
     "securitySchemes": {

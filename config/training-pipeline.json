@@ -11,8 +11,12 @@
         "data" : {
             "raw": "./data/raw",
             "partitioned": "./data/partitioned",
-            "labeled": "./data/labeled",
-            "features": "./data/features"
+            "features": "./data/features",
+            "training": "./data/training"
+        },
+        "training_data": {
+            "num_folds": 10,
+            "subsample_not_fraud": 0.5
         },
         "model": {
             "path": "./data/model/xgb/bst.pkl"
@@ -51,6 +55,22 @@
             "type": "STREAM",
             "read_stream": {
                 "name": "{events.data.preprocess.write_stream.name}",
+                "consumer_group": "{auto}"
+            },
+            "write_stream": {
+                "name": "{auto}"
+            },
+            "config" : {
+                "stream" : {
+                    "timeout": 3600,
+                    "target_max_len": 1
+                }
+            }
+        },
+        "data.training-data" :{
+            "type": "STREAM",
+            "read_stream": {
+                "name": "{events.data.feature-calc.write_stream.name}",
                 "consumer_group": "{auto}"
             },
             "write_stream": {

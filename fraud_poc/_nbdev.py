@@ -6,11 +6,12 @@ index = {"get_client": "00_jobs.ipynb",
          "MakeSampleDataJob": "00_jobs.ipynb",
          "PreprocessingJob": "00_jobs.ipynb",
          "FeatureCalcJob": "00_jobs.ipynb",
-         "__steps__": "03-feature-calc.ipynb",
+         "TrainingDataJob": "00_jobs.ipynb",
+         "__steps__": "04-training-data.ipynb",
          "__api__": "01-create-sample-data.ipynb",
-         "logger": "03-feature-calc.ipynb",
+         "logger": "04-training-data.ipynb",
          "OrderRandomSource": "01-create-sample-data.ipynb",
-         "run": "03-feature-calc.ipynb",
+         "run": "04-training-data.ipynb",
          "calculate": "03-feature-calc.ipynb",
          "count_distinct_values": "03-feature-calc.ipynb",
          "num_stats": "03-feature-calc.ipynb"}
@@ -18,7 +19,8 @@ index = {"get_client": "00_jobs.ipynb",
 modules = ["jobs.py",
            "data/make_sample_data.py",
            "data/preprocess.py",
-           "data/feature_calc.py"]
+           "data/feature_calc.py",
+           "data/training_data.py"]
 
 doc_url = "https://leosmerling.github.io/fraud_poc/"
 

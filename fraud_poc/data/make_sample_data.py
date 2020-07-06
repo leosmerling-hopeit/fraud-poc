@@ -27,7 +27,10 @@ __api__ = event_api(
     query_args=[
         ("num_batches", int, "Number of batches/files to make"),
         ("batch_size", int, "Number of rows per batch"),
-        ("batch_span_days", int, "Number of time span in days for order_date in batch")
+        ("batch_span_days", int, "Number of time span in days for order_date in batch"),
+        ("num_customers", int, "Number of customers to generate"),
+        ("num_emails", int, "Number of emails to generate"),
+        ("num_ips", int, "Number of IP addresses to generate")
     ],
     responses={
         200: (MakeSampleDataJob, "Job submitted")
@@ -44,7 +47,7 @@ class OrderRandomSource:
     @staticmethod
     def new_hash(): return hashlib.sha1(str(uuid.uuid4()).encode()).hexdigest()
 
-    def __init__(self, num_customers:int = 10000, num_ips:int = 10000, num_emails:int = 50000,
+    def __init__(self, num_customers:int, num_ips:int, num_emails:int,
                  days_ago:int = 0, days_span:int = 30):
         self.num_customers = num_customers
         self.num_ips = num_ips
@@ -101,10 +104,10 @@ class OrderRandomSource:
                'order_amount': float}
 
 # Cell
-def _make_batch(path: str, i: int, size: int, span_days: int):
+def _make_batch(path: str, i: int, size: int, span_days: int, num_customers: int, num_emails: int, num_ips: int):
     os.makedirs(path, exist_ok=True)
     days_ago = i * span_days
-    random_orders = OrderRandomSource(days_ago=days_ago)
+    random_orders = OrderRandomSource(days_ago=days_ago, num_customers=num_customers, num_emails=num_emails, num_ips=num_ips)
     df = random_orders(size) #, meta=random_orders.meta())
     file_name = f'{path}/batch{i:02}.parquet'
     df.to_parquet(file_name, engine='fastparquet', compression='LZ4')
@@ -112,9 +115,11 @@ def _make_batch(path: str, i: int, size: int, span_days: int):
 
 # Cell
 async def submit_job(payload: None, context: EventContext,
-                     num_batches: int = 12, batch_size: int = 100000, batch_span_days: int = 30) -> MakeSampleDataJob:
+                     num_batches: int = 12, batch_size: int = 100000, batch_span_days: int = 30,
+                     num_customers: int = 10000, num_emails: int = 10000, num_ips: int = 10000) -> MakeSampleDataJob:
     path = context.env['data']['raw']
-    return MakeSampleDataJob(path, int(num_batches), int(batch_size), int(batch_span_days))
+    return MakeSampleDataJob(path, int(num_batches), int(batch_size), int(batch_span_days),
+                            int(num_customers), int(num_emails), int(num_ips))
 
 async def make_batches(job: MakeSampleDataJob, context: EventContext) -> MakeSampleDataJob:
     logger.info(context, f"Executing: {job}...")
@@ -125,7 +130,8 @@ async def make_batches(job: MakeSampleDataJob, context: EventContext) -> MakeSam
         for i in range(job.num_batches):
             logger.info(context, f"Submitting batch {i}...")
             batches.append(
-                client.submit(_make_batch, job.path, i, job.batch_size, job.batch_span_days)
+                client.submit(_make_batch, job.path, i, job.batch_size, job.batch_span_days,
+                             job.num_customers, job.num_emails, job.num_ips)
             )
 
         for batch in batches:
