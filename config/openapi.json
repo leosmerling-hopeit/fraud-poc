@@ -6,6 +6,56 @@
     "description": "Fraud POC"
   },
   "paths": {
+    "/api/fraud-poc/0x0x1/submit-training-pipeline": {
+      "get": {
+        "description": "Training: Submit training pipeline",
+        "parameters": [
+          {
+            "name": "raw_path",
+            "in": "query",
+            "required": true,
+            "description": "Path to source raw data",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Track-Request-Id",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Track-Request-Ts",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Ts",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job submitted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MakeSampleDataJob"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "fraud_poc.0x0x1"
+        ]
+      }
+    },
     "/api/fraud-poc/0x0x1/data/make-sample-data": {
       "get": {
         "description": "Data: Make sample data",
@@ -107,38 +157,38 @@
       "MakeSampleDataJob": {
         "type": "object",
         "required": [
-          "path",
-          "num_batches",
-          "batch_size",
-          "batch_span_days",
-          "num_customers",
-          "num_emails",
-          "num_ips"
+          "path"
         ],
         "properties": {
           "path": {
             "type": "string"
           },
           "num_batches": {
-            "type": "integer"
+            "type": "integer",
+            "default": 0
           },
           "batch_size": {
-            "type": "integer"
+            "type": "integer",
+            "default": 0
           },
           "batch_span_days": {
-            "type": "integer"
+            "type": "integer",
+            "default": 0
           },
           "num_customers": {
-            "type": "integer"
+            "type": "integer",
+            "default": 0
           },
           "num_emails": {
-            "type": "integer"
+            "type": "integer",
+            "default": 0
           },
           "num_ips": {
-            "type": "integer"
+            "type": "integer",
+            "default": 0
           }
         },
-        "description": "MakeSampleDataJob(path: str, num_batches: int, batch_size: int, batch_span_days: int, num_customers: int, num_emails: int, num_ips: int)"
+        "description": "MakeSampleDataJob(path: str, num_batches: int = 0, batch_size: int = 0, batch_span_days: int = 0, num_customers: int = 0, num_emails: int = 0, num_ips: int = 0)"
       }
     },
     "securitySchemes": {

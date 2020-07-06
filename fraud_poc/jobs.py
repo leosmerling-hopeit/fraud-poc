@@ -35,12 +35,12 @@ def get_client(context: Optional[EventContext] = None):
 @dataclass
 class MakeSampleDataJob:
     path: str
-    num_batches: int
-    batch_size: int
-    batch_span_days: int
-    num_customers: int
-    num_emails: int
-    num_ips: int
+    num_batches: int = 0
+    batch_size: int = 0
+    batch_span_days: int = 0
+    num_customers: int = 0
+    num_emails: int = 0
+    num_ips: int = 0
 
 # Cell
 @dataobject

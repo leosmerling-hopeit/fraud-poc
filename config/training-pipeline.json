@@ -23,6 +23,12 @@
         }
     },
     "events": {
+        "submit_training_pipeline": {
+            "type": "GET",
+            "write_stream": {
+                "name": "{events.data.make-sample-data.write_stream.name}"
+            }            
+        },
         "data.make-sample-data" :{
             "type": "GET",
             "write_stream": {

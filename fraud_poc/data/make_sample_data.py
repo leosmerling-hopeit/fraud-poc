@@ -8,6 +8,7 @@ import random
 import uuid
 import hashlib
 import os
+from copy import copy
 
 import numpy as np
 import pandas as pd
@@ -47,22 +48,22 @@ class OrderRandomSource:
     @staticmethod
     def new_hash(): return hashlib.sha1(str(uuid.uuid4()).encode()).hexdigest()
 
-    def __init__(self, num_customers:int, num_ips:int, num_emails:int,
-                 days_ago:int = 0, days_span:int = 30):
-        self.num_customers = num_customers
-        self.num_ips = num_ips
-        self.num_emails = num_emails
+    def __init__(self, days_ago: int, days_span: int,
+                 customer_ids: list, emails: list, email_to_customer: list, ips, email_to_ip: list):
+        self.num_customers = len(customer_ids)
+        self.num_ips = len(ips)
+        self.num_emails = len(emails)
         self.lat_min, self.lat_max = -20., -10.
         self.long_min, self.long_max = -20., -10.
         self.to_date = datetime.now(tz=timezone.utc) - timedelta(days=days_ago)
         self.to_date_epoch = int(self.to_date.timestamp())
         self.from_date = self.to_date - timedelta(days=days_span)
         self.from_date_epoch = int(self.from_date.timestamp())
-        self.customer_ids = [self.new_uuid() for i in range(self.num_customers)]
-        self.emails = [self.new_hash() for i in range(self.num_emails)]
-        self.email_to_customer = [self.customer_ids[random.randint(0, self.num_customers-1)] for i in range(self.num_emails)]
-        self.ips = [self.new_hash() for i in range(self.num_ips)]
-        self.email_to_ip = [self.ips[random.randint(0, num_ips-1)] for i in range(self.num_emails)]
+        self.customer_ids = customer_ids
+        self.emails = emails
+        self.email_to_customer = email_to_customer
+        self.ips = ips
+        self.email_to_ip = email_to_ip
 
     def random_order(self):
         email_idx = random.randint(0, self.num_emails-1)
@@ -104,10 +105,13 @@ class OrderRandomSource:
                'order_amount': float}
 
 # Cell
-def _make_batch(path: str, i: int, size: int, span_days: int, num_customers: int, num_emails: int, num_ips: int):
+def _make_batch(path: str, i: int, size: int, days_span: int,
+               customer_ids: list, emails: list, email_to_customer: list, ips, email_to_ip: list):
     os.makedirs(path, exist_ok=True)
-    days_ago = i * span_days
-    random_orders = OrderRandomSource(days_ago=days_ago, num_customers=num_customers, num_emails=num_emails, num_ips=num_ips)
+    days_ago = i * days_span
+    random_orders = OrderRandomSource(days_ago=days_ago, days_span=days_span,
+                                      customer_ids=customer_ids, emails=emails, email_to_customer=email_to_customer,
+                                      ips=ips, email_to_ip=email_to_ip)
     df = random_orders(size) #, meta=random_orders.meta())
     file_name = f'{path}/batch{i:02}.parquet'
     df.to_parquet(file_name, engine='fastparquet', compression='LZ4')
@@ -127,11 +131,17 @@ async def make_batches(job: MakeSampleDataJob, context: EventContext) -> MakeSam
     logger.info(context, f"Dask: {client}")
     try:
         batches = []
+        customer_ids = [OrderRandomSource.new_uuid() for i in range(job.num_customers)]
+        emails = [OrderRandomSource.new_hash() for i in range(job.num_emails)]
+        email_to_customer = [customer_ids[random.randint(0, job.num_customers-1)] for i in range(job.num_emails)]
+        ips = [OrderRandomSource.new_hash() for i in range(job.num_ips)]
+        email_to_ip = [ips[random.randint(0, job.num_ips-1)] for i in range(job.num_emails)]
+
         for i in range(job.num_batches):
             logger.info(context, f"Submitting batch {i}...")
             batches.append(
                 client.submit(_make_batch, job.path, i, job.batch_size, job.batch_span_days,
-                             job.num_customers, job.num_emails, job.num_ips)
+                             customer_ids, emails, email_to_customer, ips, email_to_ip)
             )
 
         for batch in batches:
