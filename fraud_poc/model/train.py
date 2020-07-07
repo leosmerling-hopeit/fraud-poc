@@ -14,10 +14,6 @@ import pickle
 import dask.dataframe as dd
 import numpy as np
 
-import dask
-import dask_xgboost
-from dask_ml.model_selection import train_test_split
-
 from hopeit.app.context import EventContext
 from hopeit.app.events import Spawn, SHUFFLE
 from hopeit.app.api import event_api
@@ -71,7 +67,7 @@ def _load_model(file_name):
 def _score(y, y_pred):
     treshold = 0.5
     tp, tn, fp, fn = 0, 0, 0, 0
-    for v, p  in zip(y.to_numpy() > treshold, y_pred > treshold):
+    for v, p  in zip(y > treshold, y_pred > treshold):
         if v and p: tp += 1
         elif v and not p: fn += 1
         elif not v and not p: tn += 1
@@ -90,11 +86,13 @@ def _score(y, y_pred):
 
 # Cell
 def train_model(job: TrainModelJob, context: EventContext) -> Optional[TrainModelJob]:
+    from dask_ml.model_selection import train_test_split
     client = get_client()
     try:
+        import dask_xgboost
         logger.info(context, f"Loading training data {job.train_data}...")
         df = dd.read_parquet(job.train_data, engine='fastparquet')
-        #df_validation = dd.read_parquet(f'./data/training/validation/', engine='fastparquet')
+
         X, y = _features_and_labels(df)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
         #XGBoost
@@ -121,18 +119,19 @@ def validate_model(job: TrainModelJob, context: EventContext) -> Optional[TrainM
     model = _load_model(job.model_path)
     client = get_client()
     try:
+        import dask_xgboost
         logger.info(context, f"Loading validation data from {job.validation_data}...")
         df = dd.read_parquet(job.validation_data, engine='fastparquet')
         X, y = _features_and_labels(df)
 
         logger.info(context, f"Predicting labels for validation...")
         y_pred = dask_xgboost.predict(client, model, X).persist()
-        y, y_pred = dask.compute(y, y_pred)
-        score = _score(y, y_pred)
+        y, y_pred = client.gather([y, y_pred])
+        score = _score(y.values.compute(), y_pred.compute())
         logger.info(context, f'Validation score: {score}')
 
         min_score = context.env['model']['validation_min_score']
-        if f1 >= min_score:
+        if score['f1'] >= min_score:
             job.model_path = _save_model(model, score, context.env['model']['path'], 'latest-ok')
             job.validation_score = score
             logger.info(context, f"Saved model for production in {job.model_path}")
