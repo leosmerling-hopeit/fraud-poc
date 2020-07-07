@@ -29,7 +29,7 @@ def _merge_feature_datasets(datasets: Dict[str, str]):
         df_key = dd.read_parquet(path, engine='fastparquet')
         if df is not None:
             df = df.merge(df_key, left_on='order_id', right_on='order_id', suffixes=('', '_DROP'))
-            keep_cols = [c for c in df.columns if c[:-5] != '_DROP']
+            keep_cols = [c for c in df.columns if c[-5:] != '_DROP']
             df = df[keep_cols]
         else:
             df = df_key
@@ -37,9 +37,10 @@ def _merge_feature_datasets(datasets: Dict[str, str]):
 
 
 def _add_labels(df):
-    df['is_fraud'] = ((df.emails_by_customer_id + df.ip_addrs_by_customer_id) > 12) | \
-            ((df.order_amount > 1.1 * df.order_amount_mean_by_email) & (df.emails_by_customer_id > 5))
-    df['is_fraud'] = df['is_fraud'].apply(lambda x: int(x & (random.random() > 0.5)), meta=('is_fraud', int))
+    df['is_fraud'] = (df['known_ip_addr_by_customer_id'] == 0) & (df['num_ip_addr_by_customer_id'] > 3)
+    df['is_fraud'] = df['is_fraud'] | ((df['known_email_by_customer_id'] == 0) & (df['num_email_by_customer_id'] > 3))
+    df['is_fraud'] = df['is_fraud'] | (df['order_amount'] > 2. * df['order_amount_mean_by_customer_id'])
+    df['is_fraud'] = df['is_fraud'].apply(lambda x: int(x & (random.random() > 0.1)), meta=('is_fraud', int))
     return df
 
 def _add_sample_flag(df, subsample_not_fraud: float):

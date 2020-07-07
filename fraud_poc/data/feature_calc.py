@@ -26,26 +26,32 @@ def calculate(df, count_cols, stat_cols, by):
     df = df.merge(right,
                   left_on=[df.index, 'order_id'],
                   right_on=[by, 'order_id'],
-                  suffixes=('', f's_by_{by}'))
-    return df
+                  suffixes=('', f'_DROP'))
+    return df[[col for col in df.columns if col[-5:] != '_DROP']]
 
 
 def count_distinct_values(df, cols, by):
-    results = []
+    sets = []
     for col in cols:
-        results.append(
+        sets.append(
             df.groupby([df.index, df.order_date, df.order_id])[col] \
                 .apply(list) \
                 .sort_index() \
                 .groupby(level=0) \
                 .apply(np.cumsum) \
-                .apply(lambda x: len(set(x))))
+                .apply(lambda x: list(x)[:10]))
 
-    counts = results[0].to_frame()
-    for col, result in zip(cols[1:], results[1:]):
+    counts = sets[0].to_frame()
+    for col, result in zip(cols, sets):
         counts[col] = result
+        counts[f'num_{col}_by_{by}'] = counts[col].apply(lambda x: len(set(x)))
+        counts[f'last_{col}_by_{by}'] = counts[col].apply(lambda x: x[-2] if len(x)>1 else "")
+        counts[f'same_{col}_by_{by}'] = counts[col].apply(lambda x: int(x[-2] == x[-1]) if len(x) > 1 else 0)
+        counts[f'known_{col}_by_{by}'] = counts[col].apply(lambda x: int(x[-1] in x[:-1]) if len(x) > 1 else 0)
+        counts[f'{col}_by_{by}'] = counts[col].apply(str)
 
-    counts = counts.reset_index()[[by, 'order_id', *cols]]
+    count_cols = [f'{p}{col}_by_{by}' for p in ('', 'num_', 'last_', 'same_', 'known_') for col in cols]
+    counts = counts.reset_index()[[by, 'order_id', *count_cols]]
     return counts
 
 def num_stats(df, cols, by):
@@ -56,7 +62,7 @@ def num_stats(df, cols, by):
                 .sort_index() \
                 .groupby(level=0) \
                 .apply(np.cumsum) \
-                .apply(lambda x: (np.mean(x), np.std(x), np.min(x), np.max(x), np.sum(x))))
+                .apply(lambda x: list(x)[:10]))
 
     stats = results[0].to_frame()
     for col, result in zip(cols[1:], results[1:]):
@@ -64,12 +70,12 @@ def num_stats(df, cols, by):
 
     stats = stats.reset_index()[[by, 'order_id', *cols]]
     for col in cols:
-        stats[f'{col}_mean_by_{by}'] = stats[col].apply(lambda x: x[0])
-        stats[f'{col}_std_by_{by}'] = stats[col].apply(lambda x: x[1])
-        stats[f'{col}_min_by_{by}'] = stats[col].apply(lambda x: x[2])
-        stats[f'{col}_max_by_{by}'] = stats[col].apply(lambda x: x[3])
-        stats[f'{col}_sum_by_{by}'] = stats[col].apply(lambda x: x[4])
-        stats[col] = stats[col].apply(str)
+        stats[f'{col}_mean_by_{by}'] = stats[col].apply(lambda x: np.mean(x))
+        stats[f'{col}_std_by_{by}'] = stats[col].apply(lambda x: np.std(x))
+        stats[f'{col}_min_by_{by}'] = stats[col].apply(lambda x: np.min(x))
+        stats[f'{col}_max_by_{by}'] = stats[col].apply(lambda x: np.max(x))
+        stats[f'{col}_sum_by_{by}'] = stats[col].apply(lambda x: np.sum(x))
+        stats[f'{col}_by_{by}'] = stats[col].apply(str)
 
     return stats
 
