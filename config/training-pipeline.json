@@ -19,7 +19,8 @@
             "subsample_not_fraud": 0.5
         },
         "model": {
-            "path": "./data/model/xgb/bst.pkl"
+            "path": "./data/model/xgb",
+            "validation_min_score": 0.6
         }
     },
     "events": {
@@ -77,6 +78,22 @@
             "type": "STREAM",
             "read_stream": {
                 "name": "{events.data.feature-calc.write_stream.name}",
+                "consumer_group": "{auto}"
+            },
+            "write_stream": {
+                "name": "{auto}"
+            },
+            "config" : {
+                "stream" : {
+                    "timeout": 3600,
+                    "target_max_len": 1
+                }
+            }
+        },
+        "model.train" :{
+            "type": "STREAM",
+            "read_stream": {
+                "name": "{events.data.training_data.write_stream.name}",
                 "consumer_group": "{auto}"
             },
             "write_stream": {
