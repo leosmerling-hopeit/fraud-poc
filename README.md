@@ -1,5 +1,5 @@
 # Fraud POC
-> This is a prototype/proof-of-concept of a ML solution for Fraud Detection for e-commerce,
+
 
 
 [Dask](https://dask.org/) is a distributed processing engine for Python that can be used to process high data loads in distributed environments, such a Dask cluster. It has APIs built on top of popular Numpy and Pandas libraries.
@@ -23,6 +23,7 @@ This repo shows and end-to-end example of a Fraud Detection system consisting of
 Model Trainig + Prediction can be developed and prepared for production. The data used for this example
 is randomly generated orders, and neither the features selected and model parameteres were optimized
 given the nature of data used. The intention is to give an overview of the tools and the approach to quickstart a project that could evolve into a mature state by improving each one of its pieces.
+
 
 ### Getting started
 
