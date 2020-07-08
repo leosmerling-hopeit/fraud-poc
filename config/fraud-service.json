@@ -1,0 +1,20 @@
+{
+    "app": {
+        "name": "fraud-poc",
+        "version": "0.0.1-service"
+    },
+    "env": {
+        "db": {
+            "url": "redis://localhost:6379"
+        },
+        "model": {
+            "path": "./data/model/xgb",
+            "name": "latest-ok.pkl"
+        }
+    },
+    "events": {
+        "live.predict": {
+            "type": "POST"
+        }
+    }
+}

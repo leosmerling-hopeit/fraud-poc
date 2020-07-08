@@ -39,7 +39,7 @@ def count_distinct_values(df, cols, by):
                 .sort_index() \
                 .groupby(level=0) \
                 .apply(np.cumsum) \
-                .apply(lambda x: list(x)[:10]))
+                .apply(lambda x: list(x)[-10:]))
 
     counts = sets[0].to_frame()
     for col, result in zip(cols, sets):
@@ -62,7 +62,7 @@ def num_stats(df, cols, by):
                 .sort_index() \
                 .groupby(level=0) \
                 .apply(np.cumsum) \
-                .apply(lambda x: list(x)[:10]))
+                .apply(lambda x: list(x)[-10:]))
 
     stats = results[0].to_frame()
     for col, result in zip(cols[1:], results[1:]):

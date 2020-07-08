@@ -64,8 +64,7 @@ def _load_model(file_name):
     with open(file_name, 'rb') as fb:
         return pickle.load(fb)
 
-def _score(y, y_pred):
-    treshold = 0.5
+def _score(y, y_pred, treshold=0.5):
     tp, tn, fp, fn = 0, 0, 0, 0
     for v, p  in zip(y > treshold, y_pred > treshold):
         if v and p: tp += 1
@@ -74,9 +73,9 @@ def _score(y, y_pred):
         elif not v and p: fp += 1
 
 
-    tpr = tp/(tp+fp)
-    rec = tp/(tp+fn)
-    tnr = tn/(tn+fp)
+    tpr = tp/(tp+fp) if (tp+fp)>0 else 1.0
+    rec = tp/(tp+fn) if (tp+fn)>0 else 1.0
+    tnr = tn/(tn+fp) if (tn+fp)>0 else 1.0
     acc = (tpr + tnr) / 2
     f1 = 2*(tpr*rec)/(tpr+rec)
 

@@ -8,9 +8,10 @@ index = {"get_client": "00_jobs.ipynb",
          "FeatureCalcJob": "00_jobs.ipynb",
          "TrainingDataJob": "00_jobs.ipynb",
          "TrainModelJob": "00_jobs.ipynb",
-         "__steps__": "06-submit-training-pipeline.ipynb",
-         "__api__": "06-submit-training-pipeline.ipynb",
-         "logger": "06-submit-training-pipeline.ipynb",
+         "PrepareDbJob": "00_jobs.ipynb",
+         "__steps__": "08-predict.ipynb",
+         "__api__": "08-predict.ipynb",
+         "logger": "08-predict.ipynb",
          "OrderRandomSource": "01-create-sample-data.ipynb",
          "run": "04-training-data.ipynb",
          "calculate": "03-feature-calc.ipynb",
@@ -19,7 +20,11 @@ index = {"get_client": "00_jobs.ipynb",
          "setup": "05-train-model.ipynb",
          "train_model": "05-train-model.ipynb",
          "validate_model": "05-train-model.ipynb",
-         "submit": "06-submit-training-pipeline.ipynb"}
+         "submit": "06-submit-training-pipeline.ipynb",
+         "OrderInfo": "08-predict.ipynb",
+         "model": "08-predict.ipynb",
+         "db": "08-predict.ipynb",
+         "features": "08-predict.ipynb"}
 
 modules = ["jobs.py",
            "data/make_sample_data.py",
@@ -27,7 +32,9 @@ modules = ["jobs.py",
            "data/feature_calc.py",
            "data/training_data.py",
            "model/train.py",
-           "submit_training_pipeline.py"]
+           "submit_training_pipeline.py",
+           "data/prepare_db.py",
+           "live/predict.py"]
 
 doc_url = "https://leosmerling.github.io/fraud_poc/"
 

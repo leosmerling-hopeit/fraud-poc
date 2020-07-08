@@ -1,7 +1,7 @@
 {
     "app": {
         "name": "fraud-poc",
-        "version": "0.0.1"
+        "version": "0.0.1-training"
     },
     "env": {
         "dask": {
@@ -21,6 +21,9 @@
         "model": {
             "path": "./data/model/xgb",
             "validation_min_score": 0.9
+        },
+        "db": {
+            "host": "localhost", "port": 6379
         }
     },
     "events": {
@@ -75,6 +78,22 @@
             }
         },
         "data.training-data" :{
+            "type": "STREAM",
+            "read_stream": {
+                "name": "{events.data.feature-calc.write_stream.name}",
+                "consumer_group": "{auto}"
+            },
+            "write_stream": {
+                "name": "{auto}"
+            },
+            "config" : {
+                "stream" : {
+                    "timeout": 3600,
+                    "target_max_len": 1
+                }
+            }
+        },
+        "data.prepare-db" :{
             "type": "STREAM",
             "read_stream": {
                 "name": "{events.data.feature-calc.write_stream.name}",

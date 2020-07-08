@@ -31,5 +31,5 @@ logger = app_logger()
 # Cell
 def submit(payload: None, context: EventContext, raw_path: str) -> MakeSampleDataJob:
     job = MakeSampleDataJob(path=raw_path)
-    logger.info(context, "Submit {job}...")
+    logger.info(context, f"Submitting {job}...")
     return job

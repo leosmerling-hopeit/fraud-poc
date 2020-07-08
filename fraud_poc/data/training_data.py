@@ -39,7 +39,7 @@ def _merge_feature_datasets(datasets: Dict[str, str]):
 def _add_labels(df):
     df['is_fraud'] = (df['known_ip_addr_by_customer_id'] == 0) & (df['num_ip_addr_by_customer_id'] > 3)
     df['is_fraud'] = df['is_fraud'] | ((df['known_email_by_customer_id'] == 0) & (df['num_email_by_customer_id'] > 3))
-    df['is_fraud'] = df['is_fraud'] | (df['order_amount'] > 2. * df['order_amount_mean_by_customer_id'])
+    df['is_fraud'] = df['is_fraud'] | (df['order_amount'] > (1. + 0.5 * random.random() * df['order_amount_mean_by_customer_id']))
     df['is_fraud'] = df['is_fraud'].apply(lambda x: int(x & (random.random() > 0.1)), meta=('is_fraud', int))
     return df
 
