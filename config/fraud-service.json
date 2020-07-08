@@ -15,6 +15,9 @@
     "events": {
         "live.predict": {
             "type": "POST"
+        },
+        "test.find_orders": {
+            "type": "GET"
         }
     }
 }

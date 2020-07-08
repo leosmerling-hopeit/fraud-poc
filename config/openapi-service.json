@@ -76,6 +76,68 @@
           "fraud_poc.0x0x1_service"
         ]
       }
+    },
+    "/api/fraud-poc/0x0x1-service/test/find-orders": {
+      "get": {
+        "description": "Test: Find Orders",
+        "parameters": [
+          {
+            "name": "prefix",
+            "in": "query",
+            "required": true,
+            "description": "Prefix for customer_id or email with * as a wildcard",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "num_items",
+            "in": "query",
+            "required": true,
+            "description": "Number of items to retrieve",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "X-Track-Request-Id",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Track-Request-Ts",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Ts",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list of orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderInfo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "fraud_poc.0x0x1_service"
+        ]
+      }
     }
   },
   "components": {

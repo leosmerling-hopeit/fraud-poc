@@ -2,17 +2,20 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"get_client": "00_jobs.ipynb",
+index = {"get_client_async": "00_jobs.ipynb",
+         "get_client": "00_jobs.ipynb",
          "MakeSampleDataJob": "00_jobs.ipynb",
          "PreprocessingJob": "00_jobs.ipynb",
          "FeatureCalcJob": "00_jobs.ipynb",
          "TrainingDataJob": "00_jobs.ipynb",
          "TrainModelJob": "00_jobs.ipynb",
          "PrepareDbJob": "00_jobs.ipynb",
-         "__steps__": "08-predict.ipynb",
-         "__api__": "08-predict.ipynb",
-         "logger": "08-predict.ipynb",
+         "__steps__": "09-find-orders.ipynb",
+         "__api__": "09-find-orders.ipynb",
+         "logger": "09-find-orders.ipynb",
          "OrderRandomSource": "01-create-sample-data.ipynb",
+         "submit_job": "01-create-sample-data.ipynb",
+         "make_batches": "01-create-sample-data.ipynb",
          "run": "04-training-data.ipynb",
          "calculate": "03-feature-calc.ipynb",
          "count_distinct_values": "03-feature-calc.ipynb",
@@ -21,10 +24,17 @@ index = {"get_client": "00_jobs.ipynb",
          "train_model": "05-train-model.ipynb",
          "validate_model": "05-train-model.ipynb",
          "submit": "06-submit-training-pipeline.ipynb",
+         "update_database": "07-prepare-db.ipynb",
          "OrderInfo": "08-predict.ipynb",
          "model": "08-predict.ipynb",
-         "db": "08-predict.ipynb",
-         "features": "08-predict.ipynb"}
+         "db": "09-find-orders.ipynb",
+         "features": "08-predict.ipynb",
+         "__init_event__": "08-predict.ipynb",
+         "lookup_features": "08-predict.ipynb",
+         "predict": "08-predict.ipynb",
+         "__postprocess__": "08-predict.ipynb",
+         "cur": "09-find-orders.ipynb",
+         "scan_db": "09-find-orders.ipynb"}
 
 modules = ["jobs.py",
            "data/make_sample_data.py",
@@ -34,7 +44,8 @@ modules = ["jobs.py",
            "model/train.py",
            "submit_training_pipeline.py",
            "data/prepare_db.py",
-           "live/predict.py"]
+           "live/predict.py",
+           "test/find_orders.py"]
 
 doc_url = "https://leosmerling.github.io/fraud_poc/"
 
