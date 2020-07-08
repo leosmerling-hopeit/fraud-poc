@@ -2,6 +2,15 @@
 
 
 
+
+This is a prototype/proof-of-concept of a ML solution for Fraud Detection for e-commerce,
+completely build in Python and backed by Dask to parallelize data processing and model training
+and hopeit.engine to "productionize" training pipeline and prediction service as microservices.
+
+Author: Leo Smerling 
+
+LinkedIn: https://www.linkedin.com/in/leosmerling/
+
 [Dask](https://dask.org/) is a distributed processing engine for Python that can be used to process high data loads in distributed environments, such a Dask cluster. It has APIs built on top of popular Numpy and Pandas libraries.
 
 [hopeit.engine](https://github.com/hopeit-git/hopeit.engine): is an (upcoming) open-source library that I am contributing to, that enables to quickly develop microservices in Python. hopeit.engine is built on top of aiohttp to provide API endpoints and async processing, and also provides distributed processing of streaming events using [Redis Streams](https://redis.io/topics/streams-intro). It provides streams, logging, metrics and tracking/tracing out of the box.

@@ -29,6 +29,23 @@ sidebar: home_sidebar
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>This is a prototype/proof-of-concept of a ML solution for Fraud Detection for e-commerce,
+completely build in Python and backed by Dask to parallelize data processing and model training
+and hopeit.engine to "productionize" training pipeline and prediction service as microservices.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Author: Leo Smerling</p>
+<p>LinkedIn: <a href="https://www.linkedin.com/in/leosmerling/">https://www.linkedin.com/in/leosmerling/</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://dask.org/">Dask</a> is a distributed processing engine for Python that can be used to process high data loads in distributed environments, such a Dask cluster. It has APIs built on top of popular Numpy and Pandas libraries.</p>
 <p><a href="https://github.com/hopeit-git/hopeit.engine">hopeit.engine</a>: is an (upcoming) open-source library that I am contributing to, that enables to quickly develop microservices in Python. hopeit.engine is built on top of aiohttp to provide API endpoints and async processing, and also provides distributed processing of streaming events using <a href="https://redis.io/topics/streams-intro">Redis Streams</a>. It provides streams, logging, metrics and tracking/tracing out of the box.</p>
 <p>To enable development, testing and working with the data in an unified environment I use <a href="https://github.com/fastai/nbdev">nbdev</a>. nbdev allows to explore data, create the services and test using Jupyter Notebooks. hopeit.engine and Dask plays well also with Juypyter notebooks, so the whole pipeline and prediction service can be developed and tested from Jupyter.</p>
