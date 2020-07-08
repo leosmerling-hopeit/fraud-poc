@@ -1,0 +1,199 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "0.0.1",
+    "title": "Fraud POC Live Service",
+    "description": "Fraud POC"
+  },
+  "paths": {
+    "/api/fraud-poc/0x0x1-service/live/predict": {
+      "post": {
+        "description": "Live: Predict Fraud",
+        "parameters": [
+          {
+            "name": "X-Track-Request-Id",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Track-Request-Ts",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Ts",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Order Information",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderInfo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "features used for prediction contatining `is_fraud` field as result of prediction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/dict"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "customer or email not found (this example only works for known customer_id and email)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "live.predict"
+                  ],
+                  "properties": {
+                    "live.predict": {
+                      "type": "string"
+                    }
+                  },
+                  "description": "live.predict string payload"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "fraud_poc.0x0x1_service"
+        ]
+      }
+    },
+    "/api/fraud-poc/0x0x1-service/test/find-orders": {
+      "get": {
+        "description": "Test: Find Orders",
+        "parameters": [
+          {
+            "name": "prefix",
+            "in": "query",
+            "required": true,
+            "description": "Prefix for customer_id or email with * as a wildcard",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "num_items",
+            "in": "query",
+            "required": true,
+            "description": "Number of items to retrieve",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "X-Track-Request-Id",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Track-Request-Ts",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Ts",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list of orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderInfo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "fraud_poc.0x0x1_service"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "OrderInfo": {
+        "type": "object",
+        "required": [
+          "order_id",
+          "customer_id",
+          "order_date",
+          "email",
+          "ip_addr",
+          "order_amount",
+          "location_lat",
+          "location_long"
+        ],
+        "properties": {
+          "order_id": {
+            "type": "string"
+          },
+          "customer_id": {
+            "type": "string"
+          },
+          "order_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "email": {
+            "type": "string"
+          },
+          "ip_addr": {
+            "type": "string"
+          },
+          "order_amount": {
+            "type": "number"
+          },
+          "location_lat": {
+            "type": "number"
+          },
+          "location_long": {
+            "type": "number"
+          }
+        },
+        "description": "OrderInfo(order_id: str, customer_id: str, order_date: datetime.datetime, email: str, ip_addr: str, order_amount: float, location_lat: float, location_long: float)"
+      }
+    },
+    "securitySchemes": {
+      "auth.basic": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "auth.bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": []
+}

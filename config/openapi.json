@@ -1,0 +1,318 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "0.0.1",
+    "title": "Fraud POC",
+    "description": "Fraud POC"
+  },
+  "paths": {
+    "/api/fraud-poc/0x0x1-training/submit-training-pipeline": {
+      "get": {
+        "description": "Training: Submit training pipeline",
+        "parameters": [
+          {
+            "name": "raw_path",
+            "in": "query",
+            "required": true,
+            "description": "Path to source raw data",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Track-Request-Id",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Track-Request-Ts",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Ts",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job submitted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MakeSampleDataJob"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "fraud_poc.0x0x1_training"
+        ]
+      }
+    },
+    "/api/fraud-poc/0x0x1-training/data/make-sample-data": {
+      "get": {
+        "description": "Data: Make sample data",
+        "parameters": [
+          {
+            "name": "num_batches",
+            "in": "query",
+            "required": true,
+            "description": "Number of batches/files to make",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "batch_size",
+            "in": "query",
+            "required": true,
+            "description": "Number of rows per batch",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "batch_span_days",
+            "in": "query",
+            "required": true,
+            "description": "Number of time span in days for order_date in batch",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "num_customers",
+            "in": "query",
+            "required": true,
+            "description": "Number of customers to generate",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "num_emails",
+            "in": "query",
+            "required": true,
+            "description": "Number of emails to generate",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "num_ips",
+            "in": "query",
+            "required": true,
+            "description": "Number of IP addresses to generate",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "X-Track-Request-Id",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Track-Request-Ts",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Ts",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job submitted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MakeSampleDataJob"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "fraud_poc.0x0x1_training"
+        ]
+      }
+    },
+    "/api/fraud-poc/0x0x1-service/live/predict": {
+      "post": {
+        "description": "Live: Predict Fraud",
+        "parameters": [
+          {
+            "name": "X-Track-Request-Id",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Track-Request-Ts",
+            "in": "header",
+            "required": false,
+            "description": "Track information: Request-Ts",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Order Information",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderInfo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "features used for prediction contatining `is_fraud` field as result of prediction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/dict"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "customer or email not found (this example only works for known customer_id and email)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "live.predict"
+                  ],
+                  "properties": {
+                    "live.predict": {
+                      "type": "string"
+                    }
+                  },
+                  "description": "live.predict string payload"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "fraud_poc.0x0x1_service"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MakeSampleDataJob": {
+        "type": "object",
+        "required": [
+          "path"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "num_batches": {
+            "type": "integer",
+            "default": 0
+          },
+          "batch_size": {
+            "type": "integer",
+            "default": 0
+          },
+          "batch_span_days": {
+            "type": "integer",
+            "default": 0
+          },
+          "num_customers": {
+            "type": "integer",
+            "default": 0
+          },
+          "num_emails": {
+            "type": "integer",
+            "default": 0
+          },
+          "num_ips": {
+            "type": "integer",
+            "default": 0
+          }
+        },
+        "description": "MakeSampleDataJob(path: str, num_batches: int = 0, batch_size: int = 0, batch_span_days: int = 0, num_customers: int = 0, num_emails: int = 0, num_ips: int = 0)"
+      },
+      "OrderInfo": {
+        "type": "object",
+        "required": [
+          "order_id",
+          "customer_id",
+          "order_date",
+          "email",
+          "ip_addr",
+          "amount",
+          "location_lat",
+          "location_long"
+        ],
+        "properties": {
+          "order_id": {
+            "type": "string"
+          },
+          "customer_id": {
+            "type": "string"
+          },
+          "order_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "email": {
+            "type": "string"
+          },
+          "ip_addr": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "location_lat": {
+            "type": "number"
+          },
+          "location_long": {
+            "type": "number"
+          }
+        },
+        "description": "OrderInfo(order_id: str, customer_id: str, order_date: datetime.datetime, email: str, ip_addr: str, amount: float, location_lat: float, location_long: float)"
+      }
+    },
+    "securitySchemes": {
+      "auth.basic": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "auth.bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": []
+}
