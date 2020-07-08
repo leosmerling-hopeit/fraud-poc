@@ -161,7 +161,7 @@ This POC only can predict fraud for known customer_id and email in the generated
 Using a customer_id and email, pass a new order to the service using the Live: Predict Endpoint:
 ![](docs/img/api03.png)
 
-And check the results, all calcualted features plus an is_fraud field is returned:
+And check the results, all calculated features plus a `is_fraud` field are returned:
 ```
 {
   "order_id": "ce4798f5-6127-4d6e-bf1d-dda810eab26b",
