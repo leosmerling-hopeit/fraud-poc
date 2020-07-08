@@ -4,7 +4,7 @@
 
 
 This is a prototype/proof-of-concept of a ML solution for Fraud Detection for e-commerce,
-completely build in Python and backed by Dask to parallelize data processing and model training
+completely built in Python and backed by Dask to parallelize data processing and model training
 and hopeit.engine to "productionize" training pipeline and prediction service as microservices.
 
 Author: Leo Smerling 
