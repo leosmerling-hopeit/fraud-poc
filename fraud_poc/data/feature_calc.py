@@ -5,6 +5,7 @@ __all__ = ['__steps__', 'logger', 'calculate', 'count_distinct_values', 'num_sta
 # Cell
 import dask.dataframe as dd
 import numpy as np
+import json
 
 from hopeit.app.context import EventContext
 from hopeit.app.events import Spawn, SHUFFLE
@@ -48,7 +49,7 @@ def count_distinct_values(df, cols, by):
         counts[f'last_{col}_by_{by}'] = counts[col].apply(lambda x: x[-2] if len(x)>1 else "")
         counts[f'same_{col}_by_{by}'] = counts[col].apply(lambda x: int(x[-2] == x[-1]) if len(x) > 1 else 0)
         counts[f'known_{col}_by_{by}'] = counts[col].apply(lambda x: int(x[-1] in x[:-1]) if len(x) > 1 else 0)
-        counts[f'{col}_by_{by}'] = counts[col].apply(str)
+        counts[f'{col}_by_{by}'] = counts[col].apply(lambda x: json.dumps(x))
 
     count_cols = [f'{p}{col}_by_{by}' for p in ('', 'num_', 'last_', 'same_', 'known_') for col in cols]
     counts = counts.reset_index()[[by, 'order_id', *count_cols]]
@@ -75,7 +76,7 @@ def num_stats(df, cols, by):
         stats[f'{col}_min_by_{by}'] = stats[col].apply(lambda x: np.min(x))
         stats[f'{col}_max_by_{by}'] = stats[col].apply(lambda x: np.max(x))
         stats[f'{col}_sum_by_{by}'] = stats[col].apply(lambda x: np.sum(x))
-        stats[f'{col}_by_{by}'] = stats[col].apply(str)
+        stats[f'{col}_by_{by}'] = stats[col].apply(lambda x: json.dumps(x))
 
     return stats
 

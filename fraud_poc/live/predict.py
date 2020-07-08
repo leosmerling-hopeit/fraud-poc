@@ -6,11 +6,13 @@ __all__ = ['OrderInfo', '__steps__', '__api__', 'logger', 'model', 'db', 'featur
 from typing import Dict, Optional
 from datetime import datetime, timezone, timedelta
 import os
+import json
 import pickle
 import aioredis
 import asyncio
 
 import pandas as pd
+import numpy as np
 import xgboost as xgb
 from dataclasses import dataclass
 from hopeit.dataobjects import dataobject
@@ -30,7 +32,7 @@ class OrderInfo:
     order_date: datetime
     email: str
     ip_addr: str
-    amount: float
+    order_amount: float
     location_lat: float
     location_long: float
 
@@ -85,16 +87,56 @@ async def _lookup_db(key: str):
     return deserialize(item, Serialization.PICKLE4, Compression.LZ4, dict)
 
 # Cell
-async def lookup_features(payload: OrderInfo, context: EventContext) -> Optional[dict]:
+async def lookup_features(order: OrderInfo, context: EventContext) -> Optional[dict]:
     logger.info(context, "Looking up features in database...")
     assert db, "Connection to database missing."
     customer_id_features, email_features = await asyncio.gather(
-        _lookup_db(payload.customer_id),
-        _lookup_db(payload.email)
+        _lookup_db(order.customer_id),
+        _lookup_db(order.email)
     )
     if customer_id_features is None or email_features is None:
         return None
-    return {**email_features, **customer_id_features, **payload.to_dict()}
+    return {
+        **_update_features(order, email_features, 'email'),
+        **_update_features(order, customer_id_features, 'customer_id'),
+        **order.to_dict()
+    }
+
+def _append(data: dict, k: str, new_item: str):
+    x = data.get(k)
+    if isinstance(x, str):
+        x = json.loads(x)
+        x.append(new_item)
+        data[k] = list(set(x[-10:]))
+
+def _update_features(order: OrderInfo, data: dict, by: str):
+    _append(data, f'order_amount_by_{by}', order.order_amount)
+    _append(data, f'ip_addr_by_{by}', order.ip_addr)
+    _append(data, f'email_by_{by}', order.email)
+    _append(data, f'customer_id_by_{by}', order.customer_id)
+    _calc_counts(data, 'customer_id')
+    _calc_counts(data, 'email')
+    _calc_amount_stats(data, 'customer_id')
+    _calc_amount_stats(data, 'email')
+    return data
+
+def _calc_counts(data: dict, by: str):
+    for col in ['ip_addr', 'customer_id', 'email']:
+        x = data.get(f'{col}_by_{by}')
+        if x is not None:
+            data[f'num_{col}_by_{by}'] = len(x)
+
+def _calc_amount_stats(data: dict, by: str):
+    col = 'order_amount'
+    x = data.get(f'{col}_by_{by}')
+    if x is not None:
+        x = np.array(x)
+        data[f'{col}_max_by_{by}'] = np.max(x)
+        data[f'{col}_min_by_{by}'] = np.min(x)
+        data[f'{col}_mean_by_{by}'] = np.mean(x)
+        data[f'{col}_std_by_{by}'] = np.std(x)
+        data[f'{col}_sum_by_{by}'] = np.sum(x)
+
 
 # Cell
 async def predict(data: dict, context: EventContext) -> dict:
