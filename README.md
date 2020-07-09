@@ -13,11 +13,9 @@ LinkedIn: https://www.linkedin.com/in/leosmerling/
 
 [Dask](https://dask.org/) is a distributed processing engine for Python that can be used to process high data loads in distributed environments, such a Dask cluster. It has APIs built on top of popular Numpy and Pandas libraries.
 
-[hopeit.engine](https://github.com/hopeit-git/hopeit.engine): is an (upcoming) open-source library that I am contributing to, that enables to quickly develop microservices in Python. hopeit.engine is built on top of aiohttp to provide API endpoints and async processing, and also provides distributed processing of streaming events using [Redis Streams](https://redis.io/topics/streams-intro). It provides streams, logging, metrics and tracking/tracing out of the box.
+[hopeit.engine](https://github.com/hopeit-git/hopeit.engine): is an (upcoming) open-source library that I am contributing to, that enables to quickly develop microservices in Python. hopeit.engine is built on top of aiohttp to provide API endpoints and async processing, and also provides distributed processing of streaming events using [Redis Streams](https://redis.io/topics/streams-intro). Streaming data, authorization, logging, metrics and tracking/tracing are added to your microservice out of the box.
 
 To enable development, testing and working with the data in an unified environment I use [nbdev](https://github.com/fastai/nbdev). nbdev allows to explore data, create the services and test using Jupyter Notebooks. hopeit.engine and Dask plays well also with Juypyter notebooks, so the whole pipeline and prediction service can be developed and tested from Jupyter.
-
-The combination of hopeit.engine, Dask and [nbdev](https://github.com/fastai/nbdev) can boost up productiviy specially in heterogeneous projects involving Data Science, Analytics, Data Engineering and Backend Development. 
 
 This repo shows and end-to-end example of a Fraud Detection system consisting of:
 - Data preprocessing and partitioning (using Dasks Dataframes API)
@@ -28,7 +26,7 @@ This repo shows and end-to-end example of a Fraud Detection system consisting of
 - Prepare and run a microservice to orchestrate and monitor the data + training pipeline (using hopeit.engine)
 - Prepare and run a microservice to predict fraud on new orders (using hopeit.engine) 
 
-**DISCLAIMER**: The objective of this project is to show an example on how Data + Feature Extraction +
+**DISCLAIMER**: The objective of this project is to quickly show an example on how Data + Feature Extraction +
 Model Trainig + Prediction can be developed and prepared for production. The data used for this example
 is randomly generated orders, and neither the features selected and model parameteres were optimized
 given the nature of data used. The intention is to give an overview of the tools and the approach to quickstart a project that could evolve into a mature state by improving each one of its pieces.
@@ -119,17 +117,17 @@ You should see a couple endpoints in http://localhost:8020/api/docs
 * The first endpoint "Data: Make Sample Data" will run the whole data+training pipeline end to end if you click in `Try It`
 ![](docs/img/api01.png)
 
-1) **create-sample-data**: will create random orders in parquet format into folder `./data/raw/`. This dataset is partitioned by time periods, i.e. 1 file x month in this example. Once this step is finished the end of the job will be notified using hopeit.engine streams funcionallity and the next job will take place once the event is consumed.
+1) **create-sample-data**: will create random orders in parquet format into folder `./data/raw/`. This dataset is partitioned by time periods, i.e. 1 file per 30-day batch in this example. Once this step is finished the end of the job will be notified using hopeit.engine streams funcionallity and the next job will take place once the event is consumed.
 
-2) **preprocess**: reads data generated in previous step and creates new output files partitioned by customer_id and email, so aggregations on those two dimensions can be perform more efficiently. Again, once the job is finished, the next step will be notified.
+2) **preprocess**: reads data generated in previous step and creates new parquet files partitioned by customer_id and email, so aggregations on those two dimensions can be performed more efficiently later. Again, once the job is finished, the next step will be notified. This generated files also can be use for data analysis and feature discovering using Jupyter and Dask.
 
-3) **feature-calc**: calculates aggregations on customer_ids and emails (i.e. accumulates most recent emails, ip_addrs, counts, order_amounts, etc) and stored a new data set of orders enriched with this extra information.
+3) **feature-calc**: calculates aggregations on customer_ids and emails (i.e. accumulates most recent emails, ip_addrs, counts, order_amounts, etc) and stores a new data set of orders enriched with this extra information.
 
-4) **training-data**: prepares data for training: obtaing lables for the order (in this POC is jus assigned using a combination of calculations with some randomness) and creates a more balanced dataset subsampling non-fraud cases, and creates a validation set using more recent non-fraud and fraud labeled transactions. Next step is notified when data is ready.
+4) **training-data**: prepares data for training: obtain labels for the orders (in this POC `is_fraud` label field is just assigned using a combination of calculations with some randomness) and creates a more balanced dataset subsampling non-fraud cases, creates a validation set using more recent non-fraud and fraud labeled transactions. Next step is notified when data is ready. The dataset is shuffle randomly into N partitions (10 in the example) so training can be performed from each partition using fairly-balanced datasets.
 
-5) **train-model**: trains an XGBoost model on sampled data using Dask distributed implementation. Validates model precision and recall using validation dataset and if validation passes a configured threshold, model is copied to be used in prediction service.
+5) **train-model**: trains an XGBoost model on sampled data using Dask distributed implementation. Validates model precision and recall using validation dataset and if validation passes a configured treshold, model is saved to be used in prediction service.
 
-6) **prepare-db**: stores most recent customer_id and email features calculated in step 3) into a Redis database that can be used for real-time prediction service. (Notice that this data should be continuosly updated on new orders but this is not provided in this example)
+6) **prepare-db**: stores most recent customer_id and email features calculated in step 3) into a Redis database that can be used for real-time prediction service. (Notice that this data should be continuously updated on new orders but this is not provided in this POC)
 
 Since data generation could be tedious, there is a second endpoint that allows to run just from step 02, assuming
 you already have raw data:
