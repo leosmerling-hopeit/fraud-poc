@@ -76,7 +76,7 @@ def _score(y, y_pred, treshold=0.5):
     prec = tp/(tp+fp) if (tp+fp)>0 else 1.0
     rec = tp/(tp+fn) if (tp+fn)>0 else 1.0
     tnr = tn/(tn+fp) if (tn+fp)>0 else 1.0
-    acc = (tpr + tnr) / 2
+    acc = (rec + tnr) / 2
     f1 = 2*(prec*rec)/(prec+rec)
 
     return {
