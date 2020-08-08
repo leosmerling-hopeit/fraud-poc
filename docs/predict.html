@@ -138,7 +138,7 @@ then this steps will retrieve concurrently features calculated on customer_id an
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="lookup_features" class="doc_header"><code>lookup_features</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/live/predict.py#L91" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lookup_features</code>(<strong><code>order</code></strong>:<a href="/fraud_poc/08-predict#OrderInfo"><code>OrderInfo</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
+<h4 id="lookup_features" class="doc_header"><code>lookup_features</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/live/predict.py#L91" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lookup_features</code>(<strong><code>order</code></strong>:<a href="/fraud_poc/predict#OrderInfo"><code>OrderInfo</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
 </blockquote>
 
 </div>
@@ -259,10 +259,10 @@ then this steps will retrieve concurrently features calculated on customer_id an
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>2020-07-08 16:46:51,870 | INFO | fraud-poc 0.0.1-service live.predict leos13 40949 | __init_event__ module=fraud_poc.live.predict... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T16:46:51.870306+00:00
-2020-07-08 16:46:51,874 | INFO | fraud-poc 0.0.1-service live.predict leos13 40949 | Loading model for prediction from ./data/model/xgb/latest-ok.pkl... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T16:46:51.870306+00:00
-2020-07-08 16:46:51,878 | INFO | fraud-poc 0.0.1-service live.predict leos13 40949 | Connecting to database redis://localhost:6379... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T16:46:51.870306+00:00
-2020-07-08 16:46:51,886 | INFO | fraud-poc 0.0.1-service live.predict leos13 40949 | Looking up features in database... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T16:46:51.870306+00:00
+<pre>2020-08-08 08:37:44,104 | INFO | fraud-poc 0.0.1-service live.predict leos13 9132 | __init_event__ module=fraud_poc.live.predict... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-08-08T08:37:44.104693+00:00
+2020-08-08 08:37:44,105 | INFO | fraud-poc 0.0.1-service live.predict leos13 9132 | Loading model for prediction from ./data/model/xgb/latest-ok.pkl... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-08-08T08:37:44.104693+00:00
+2020-08-08 08:37:44,107 | INFO | fraud-poc 0.0.1-service live.predict leos13 9132 | Connecting to database redis://localhost:6379... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-08-08T08:37:44.104693+00:00
+2020-08-08 08:37:44,109 | INFO | fraud-poc 0.0.1-service live.predict leos13 9132 | Looking up features in database... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-08-08T08:37:44.104693+00:00
 </pre>
 </div>
 </div>
