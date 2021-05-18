@@ -1,0 +1,92 @@
+version: "3"
+services:
+  redis:
+    image: 'redis:6'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6379:6379'
+      
+  dask-scheduler:
+    build:
+      context: docker/base
+      dockerfile: Dockerfile
+    image: daskdev/dask
+    hostname: dask-scheduler
+    ports:
+      - "8786:8786"
+      - "8787:8787"
+    command: ["dask-scheduler"]
+    volumes:
+      - ./data:/data
+
+  dask-worker:
+    build:
+      context: docker/base
+      dockerfile: Dockerfile
+    image: daskdev/dask
+    hostname: dask-worker
+    command: ["dask-worker", "tcp://scheduler:8786"]
+    volumes:
+      - ./data:/data
+    
+  base-notebook:
+    build:
+      context: github.com/jupyter/docker-stacks.git#master:base-notebook
+      dockerfile: Dockerfile
+      args:
+        PYTHON_VERSION: "3.8"
+    image: jupyter/base-notebook:lab
+    volumes:
+      - ./data:/data
+
+  dask-notebook:
+    build:
+      context: docker/notebook
+      dockerfile: Dockerfile
+    image: daskdev/dask-notebook
+    depends_on:
+      - base-notebook
+    hostname: notebook
+    ports:
+      - "8888:8888"
+    environment:
+      - DASK_SCHEDULER_ADDRESS="tcp://scheduler:8786"
+    volumes:
+      - ./data:/data
+
+  fastai: &fastai
+    restart: unless-stopped
+    working_dir: /data
+    image: fastai/codespaces
+    logging:
+      driver: json-file
+      options:
+        max-size: 50m
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/data/
+
+  notebook:
+    <<: *fastai
+    command: bash -c "pip install -e . && jupyter notebook --allow-root --no-browser --ip=0.0.0.0 --port=8080 --NotebookApp.token='' --NotebookApp.password=''"
+    ports:
+      - "8080:8080"
+
+  watcher:
+    <<: *fastai
+    command: watchmedo shell-command --command nbdev_build_docs --pattern *.ipynb --recursive --drop
+    network_mode: host # for GitHub Codespaces https://github.com/features/codespaces/
+
+  jekyll:
+    <<: *fastai
+    ports:
+     - "4000:4000"
+    command: >
+     bash -c "pip install .
+     && nbdev_build_docs && cd docs
+     && bundle i
+     && chmod -R u+rwx . && bundle exec jekyll serve --host 0.0.0.0"
