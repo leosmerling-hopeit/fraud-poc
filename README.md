@@ -72,6 +72,19 @@ docker-compose up -d redis
 cd ..
 ```
 
+* You can start a Dask cluster using docker or locally:
+
+Docker:
+```
+docker-compose up dask-scheduler
+docker-compose up dask-worker
+```
+
+Locally:
+```
+dask-scheduler
+dask-worker tcp://localhost:8786 --memory-limit 2GB
+```
 
 * Create a folder to store data
 ```
@@ -106,7 +119,7 @@ jupyter lab
 
 #### Training Pipeline
 
-As a result of configuration in `config/training-config.json` plus implemented Python modules generated from Notebooks 00* to 07, the following training pipeline is implemented:
+As a result of configuration in `config/training-config.json` plus implemented Python modules generated from Notebooks 00* to 07, the following training pipeline is implemented, where event (green) is notified by the previous step using streams (blueish):
 
 ```python
 pipeline_diagram

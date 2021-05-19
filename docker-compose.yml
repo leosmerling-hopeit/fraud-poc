@@ -28,7 +28,7 @@ services:
       dockerfile: Dockerfile
     image: daskdev/dask
     hostname: dask-worker
-    command: ["dask-worker", "tcp://scheduler:8786"]
+    command: ["dask-worker", "tcp://dask-scheduler:8786", "--memory-limit=2GB"]
     volumes:
       - ./data:/data
     

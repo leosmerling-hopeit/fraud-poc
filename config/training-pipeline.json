@@ -5,8 +5,8 @@
     },
     "env": {
         "dask": {
-            "_url": "tcp://localhost:8786",
-            "url": "local"
+            "url": "tcp://127.0.0.1:8786",
+            "_url": "local"
         },
         "data" : {
             "raw": "./data/raw",
