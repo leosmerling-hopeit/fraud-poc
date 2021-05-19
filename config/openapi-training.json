@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "1.0",
-    "title": "Fraud POC Training",
-    "description": "Fraud POC Title"
+    "version": "0.1.0",
+    "title": "Fraud POC Training Pipeline",
+    "description": "Fraud POC"
   },
   "paths": {
     "/api/fraud-poc/training/submit-training-pipeline": {

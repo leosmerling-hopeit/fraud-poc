@@ -1,12 +1,14 @@
 ---
 
-title: Title
+title: Feature calculation
+
 
 keywords: fastai
 sidebar: home_sidebar
 
-
-
+summary: "This module calculates features/aggregations that could be useful to detect fraudulent transactions. Results are saved into 2 parquet datasets for features email and customer_id features. These features are calculated:"
+description: "This module calculates features/aggregations that could be useful to detect fraudulent transactions. Results are saved into 2 parquet datasets for features email and customer_id features. These features are calculated:"
+nb_path: "03_feature-calc.ipynb"
 ---
 <!--
 
@@ -20,44 +22,6 @@ sidebar: home_sidebar
 
 <div class="container" id="notebook-container">
         
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Feature-calculation">Feature calculation<a class="anchor-link" href="#Feature-calculation"> </a></h3><blockquote><p>This module calculates features/aggregations that could be useful to detect fraudulent transactions. Results are saved into 2 parquet datasets for features email and customer_id features. These features are calculated:Email aggregations: * "num_customer_id_by_email": number of previously known different customer_ids for a given email, up to 10</p>
-<ul>
-<li>"same_customer_id_by_email": 1 if order contains the same customer_id as the last order from this email</li>
-<li>"known_customer_id_by_email": 1 if the customer_id has been seen before with the email</li>
-<li>"order_amount_mean_by_email": mean of the last 10 order amounts on this email</li>
-<li>"order_amount_std_by_email": std</li>
-<li>"order_amount_min_by_email": min</li>
-<li>"order_amount_max_by_email": max</li>
-<li>"order_amount_sum_by_email": sum</li>
-</ul>
-</blockquote>
-<p>Customer_id aggregations:</p>
-<ul>
-<li>"num_email_by_customer_id": number of previosuly seen different emails on the order customer_id, up to 10</li>
-<li>"num_ip_addr_by_customer_id": number of previously seen different IP addresses for the order customer_id, up to 10</li>
-<li>"same_email_by_customer_id": 1 is the email is the same as latest order for this customer_id</li>
-<li>"same_ip_addr_by_customer_id": 1 is the ip address is the same</li>
-<li>"known_email_by_customer_id": 1 if the email was seen before with this customer_id</li>
-<li>"known_ip_addr_by_customer_id": 1 if the IP address was seen befor with this customer_id</li>
-<li>"order_amount_mean_by_customer_id": mean of the last 10 order amount on this customer_id</li>
-<li>"order_amount_std_by_customer_id": std</li>
-<li>"order_amount_min_by_customer_id": min</li>
-<li>"order_amount_max_by_customer_id": max</li>
-<li>"order_amount_sum_by_customer_id": sum</li>
-</ul>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -169,7 +133,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="run" class="doc_header"><code>run</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/data/feature_calc.py#L85" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>run</code>(<strong><code>job</code></strong>:<a href="/fraud_poc/jobs#PreprocessingJob"><code>PreprocessingJob</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
+<h4 id="run" class="doc_header"><code>run</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/data/feature_calc.py#L85" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>run</code>(<strong><code>job</code></strong>:<a href="/fraud_poc/jobs.html#PreprocessingJob"><code>PreprocessingJob</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
 </blockquote>
 
 </div>
@@ -178,6 +142,13 @@ sidebar: home_sidebar
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -216,10 +187,10 @@ sidebar: home_sidebar
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>2020-07-08 11:12:58,114 | INFO | fraud-poc 0.0.1-training data.feature-calc leo-legion 35566 | Calculating features on customer_id... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T11:12:57.415253+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-2020-07-08 11:15:10,771 | INFO | fraud-poc 0.0.1-training data.feature-calc leo-legion 35566 | Saved ./data/features/customer_id/. | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T11:12:57.415253+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-2020-07-08 11:15:10,772 | INFO | fraud-poc 0.0.1-training data.feature-calc leo-legion 35566 | Calculating features on email... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T11:12:57.415253+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-2020-07-08 11:16:38,234 | INFO | fraud-poc 0.0.1-training data.feature-calc leo-legion 35566 | Saved ./data/features/email/. | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T11:12:57.415253+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
+<pre>2021-05-18 20:27:03,391 | INFO | fraud-poc training data.feature-calc ALT00617 75592 | Calculating features on customer_id... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2021-05-18T20:27:02.159375+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
+2021-05-18 20:27:04,473 | INFO | fraud-poc training data.feature-calc ALT00617 75592 | Saved ./data/features/customer_id/. | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2021-05-18T20:27:02.159375+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
+2021-05-18 20:27:04,473 | INFO | fraud-poc training data.feature-calc ALT00617 75592 | Calculating features on email... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2021-05-18T20:27:02.159375+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
+2021-05-18 20:27:05,344 | INFO | fraud-poc training data.feature-calc ALT00617 75592 | Saved ./data/features/email/. | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2021-05-18T20:27:02.159375+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
 </pre>
 </div>
 </div>
@@ -306,86 +277,86 @@ sidebar: home_sidebar
   <tbody>
     <tr>
       <th>0</th>
-      <td>43055b88-30c4-4224-8697-ab322ca0d642</td>
-      <td>2020-05-07 10:53:21+00:00</td>
-      <td>c981fe20491503912ff664740a3f97e2d77ddd6e</td>
-      <td>d957cc5adeeb4f39b29dd3cb84204f52177069e7</td>
-      <td>972.352792</td>
-      <td>00100242-b7fb-478f-ac50-16774cef232c</td>
-      <td>["c981fe20491503912ff664740a3f97e2d77ddd6e", "...</td>
-      <td>["d957cc5adeeb4f39b29dd3cb84204f52177069e7", "...</td>
+      <td>7beaa6ea-27ea-4082-a0ca-e216b93521a1</td>
+      <td>2021-05-07 22:49:55+00:00</td>
+      <td>af9ec8893d8c212276b9916b2599efe88510207d</td>
+      <td>e18142d2fcd6626e86d40573fd268c2f5f449a60</td>
+      <td>301.888156</td>
+      <td>00c00d42-6923-4297-87c4-107bc70035be</td>
+      <td>["af9ec8893d8c212276b9916b2599efe88510207d"]</td>
+      <td>["e18142d2fcd6626e86d40573fd268c2f5f449a60"]</td>
       <td>1</td>
-      <td>2</td>
+      <td>1</td>
       <td>...</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>522.676999</td>
-      <td>318.449988</td>
-      <td>89.088352</td>
-      <td>972.352792</td>
-      <td>5226.769995</td>
-      <td>[567.6496593625884, 89.08835212177269, 216.277...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>301.888156</td>
+      <td>0.000000</td>
+      <td>301.888156</td>
+      <td>301.888156</td>
+      <td>301.888156</td>
+      <td>[301.8881562196214]</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>3e40614a-cc08-4b2b-b974-765b1acfb9f7</td>
-      <td>2020-06-21 13:09:18+00:00</td>
-      <td>c981fe20491503912ff664740a3f97e2d77ddd6e</td>
-      <td>d957cc5adeeb4f39b29dd3cb84204f52177069e7</td>
-      <td>866.082201</td>
-      <td>00100242-b7fb-478f-ac50-16774cef232c</td>
-      <td>["c981fe20491503912ff664740a3f97e2d77ddd6e", "...</td>
-      <td>["d957cc5adeeb4f39b29dd3cb84204f52177069e7", "...</td>
+      <td>4069005c-02d0-4f41-b065-ad4b82412f20</td>
+      <td>2021-05-07 05:29:05+00:00</td>
+      <td>30650ad8775163a27cc73b642d3de1f46a337aaa</td>
+      <td>110fef07ad03b67a2f30fcebd6ab190bc2d11252</td>
+      <td>86.057737</td>
+      <td>048e9104-8369-407b-a0a1-fb06c06760c1</td>
+      <td>["30650ad8775163a27cc73b642d3de1f46a337aaa"]</td>
+      <td>["110fef07ad03b67a2f30fcebd6ab190bc2d11252"]</td>
       <td>1</td>
       <td>1</td>
       <td>...</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>613.614071</td>
-      <td>239.666862</td>
-      <td>310.594941</td>
-      <td>943.812111</td>
-      <td>6136.140712</td>
-      <td>[943.8121110109099, 928.4246988157718, 310.594...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>86.057737</td>
+      <td>0.000000</td>
+      <td>86.057737</td>
+      <td>86.057737</td>
+      <td>86.057737</td>
+      <td>[86.05773660199678]</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>52baa413-4853-45b2-8944-a32a3f1a7908</td>
-      <td>2020-04-07 08:51:12+00:00</td>
-      <td>c981fe20491503912ff664740a3f97e2d77ddd6e</td>
-      <td>d957cc5adeeb4f39b29dd3cb84204f52177069e7</td>
-      <td>233.483800</td>
-      <td>00100242-b7fb-478f-ac50-16774cef232c</td>
-      <td>["c981fe20491503912ff664740a3f97e2d77ddd6e", "...</td>
-      <td>["d957cc5adeeb4f39b29dd3cb84204f52177069e7", "...</td>
+      <td>3e5bb9cc-bdef-4693-8870-49967d510ae3</td>
+      <td>2021-05-03 10:08:39+00:00</td>
+      <td>79cdeec4056ed0714127c4c255d9dafa334ee2a7</td>
+      <td>ee714f6b18d2b01e2d632f1299d8cb7618099070</td>
+      <td>945.678360</td>
+      <td>09da86be-63c3-4265-a799-8fe5efaf270c</td>
+      <td>["79cdeec4056ed0714127c4c255d9dafa334ee2a7"]</td>
+      <td>["ee714f6b18d2b01e2d632f1299d8cb7618099070"]</td>
       <td>1</td>
       <td>1</td>
       <td>...</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>421.409455</td>
-      <td>210.804553</td>
-      <td>89.088352</td>
-      <td>834.000464</td>
-      <td>4214.094551</td>
-      <td>[470.18093506588053, 573.7203277223783, 250.74...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>945.678360</td>
+      <td>0.000000</td>
+      <td>945.678360</td>
+      <td>945.678360</td>
+      <td>945.678360</td>
+      <td>[945.678359760513]</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>092cb774-2412-4bfb-bd61-0e55aebad1e0</td>
-      <td>2020-05-29 12:42:14+00:00</td>
-      <td>c981fe20491503912ff664740a3f97e2d77ddd6e</td>
-      <td>d957cc5adeeb4f39b29dd3cb84204f52177069e7</td>
-      <td>310.594941</td>
-      <td>00100242-b7fb-478f-ac50-16774cef232c</td>
-      <td>["c981fe20491503912ff664740a3f97e2d77ddd6e", "...</td>
-      <td>["d957cc5adeeb4f39b29dd3cb84204f52177069e7", "...</td>
+      <td>9cc8c9aa-e342-4e7a-8269-4ebb7bc0d208</td>
+      <td>2021-05-15 04:11:54+00:00</td>
+      <td>79cdeec4056ed0714127c4c255d9dafa334ee2a7</td>
+      <td>ee714f6b18d2b01e2d632f1299d8cb7618099070</td>
+      <td>955.929156</td>
+      <td>09da86be-63c3-4265-a799-8fe5efaf270c</td>
+      <td>["79cdeec4056ed0714127c4c255d9dafa334ee2a7", "...</td>
+      <td>["ee714f6b18d2b01e2d632f1299d8cb7618099070", "...</td>
       <td>1</td>
       <td>1</td>
       <td>...</td>
@@ -393,36 +364,36 @@ sidebar: home_sidebar
       <td>1</td>
       <td>1</td>
       <td>1</td>
-      <td>707.163611</td>
-      <td>272.294281</td>
-      <td>135.586162</td>
-      <td>972.352792</td>
-      <td>7071.636113</td>
-      <td>[748.7377739689492, 842.2944822793909, 972.352...</td>
+      <td>950.803758</td>
+      <td>5.125398</td>
+      <td>945.678360</td>
+      <td>955.929156</td>
+      <td>1901.607516</td>
+      <td>[945.678359760513, 955.9291560497809]</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>a23c2b25-b815-47b9-9c27-195502c64e37</td>
-      <td>2019-08-22 11:21:32+00:00</td>
-      <td>c981fe20491503912ff664740a3f97e2d77ddd6e</td>
-      <td>dc7bb980ca2c5c80451196fb93f44f0e83e8f81f</td>
-      <td>598.571076</td>
-      <td>00100242-b7fb-478f-ac50-16774cef232c</td>
-      <td>["c981fe20491503912ff664740a3f97e2d77ddd6e", "...</td>
-      <td>["d957cc5adeeb4f39b29dd3cb84204f52177069e7", "...</td>
-      <td>1</td>
-      <td>4</td>
+      <td>5b3900c1-e2ca-4226-81ee-0aa47d825005</td>
+      <td>2021-05-07 09:52:48+00:00</td>
+      <td>86665ef2c644c5f6a50e7702a7d5b0b88ee3c68b</td>
+      <td>8a799f9e07fa26a47e84fd8f64ea20ae5601a489</td>
+      <td>525.625661</td>
+      <td>0c5e0c2c-fb79-4a60-94c4-501bf2d07278</td>
+      <td>["86665ef2c644c5f6a50e7702a7d5b0b88ee3c68b", "...</td>
+      <td>["8a799f9e07fa26a47e84fd8f64ea20ae5601a489", "...</td>
+      <td>5</td>
+      <td>5</td>
       <td>...</td>
-      <td>1</td>
+      <td>0</td>
       <td>0</td>
       <td>1</td>
-      <td>0</td>
-      <td>635.571967</td>
-      <td>275.372603</td>
-      <td>79.062306</td>
-      <td>959.817775</td>
-      <td>6355.719671</td>
-      <td>[537.3812355224538, 334.91419993288116, 79.062...</td>
+      <td>1</td>
+      <td>680.036988</td>
+      <td>236.531382</td>
+      <td>336.752082</td>
+      <td>997.119448</td>
+      <td>4760.258919</td>
+      <td>[336.7520815122097, 821.1451274507584, 922.876...</td>
     </tr>
   </tbody>
 </table>
@@ -499,103 +470,103 @@ sidebar: home_sidebar
   <tbody>
     <tr>
       <th>0</th>
-      <td>f0d63eec-8589-46fc-98aa-e9d49fead2eb</td>
-      <td>2020-05-27 17:28:52+00:00</td>
-      <td>bce8b787-e1b5-405c-9b3e-06fc91b31c36</td>
-      <td>7a4be0ba1a02ae4a27cf152848be77b35181b2ad</td>
-      <td>66.255347</td>
-      <td>00038ba252faef9a24b098ca6594c202b468e6db</td>
-      <td>["bce8b787-e1b5-405c-9b3e-06fc91b31c36", "bce8...</td>
+      <td>564ca53c-92ae-44e9-b550-857bc3f32299</td>
+      <td>2021-05-07 16:47:55+00:00</td>
+      <td>1161afda-4b7f-498b-b07c-a19c8ff25383</td>
+      <td>2061d686466fd7bdd0c4ff12c0c0431adfb4b584</td>
+      <td>296.665980</td>
+      <td>06b27c6a29714eead08e96789b9ed37c6b33c67b</td>
+      <td>["1161afda-4b7f-498b-b07c-a19c8ff25383", "1161...</td>
       <td>1</td>
-      <td>bce8b787-e1b5-405c-9b3e-06fc91b31c36</td>
+      <td>1161afda-4b7f-498b-b07c-a19c8ff25383</td>
       <td>1</td>
       <td>1</td>
-      <td>492.376981</td>
-      <td>321.362474</td>
-      <td>50.196317</td>
-      <td>974.606197</td>
-      <td>4923.769808</td>
-      <td>[865.5761207952322, 529.3101147270868, 769.143...</td>
+      <td>620.601978</td>
+      <td>323.935998</td>
+      <td>296.665980</td>
+      <td>944.537976</td>
+      <td>1241.203956</td>
+      <td>[944.5379757024328, 296.6659799710525]</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>f8310a94-64aa-4938-89c8-574ca8d08e78</td>
-      <td>2020-06-30 22:54:51+00:00</td>
-      <td>bce8b787-e1b5-405c-9b3e-06fc91b31c36</td>
-      <td>dcf438634cfd4b0ad0d72cee70e638cea9fd9070</td>
-      <td>716.340468</td>
-      <td>00038ba252faef9a24b098ca6594c202b468e6db</td>
-      <td>["bce8b787-e1b5-405c-9b3e-06fc91b31c36", "bce8...</td>
+      <td>78210c4e-1997-477f-92f7-c78da8f6e2b0</td>
+      <td>2021-05-12 00:37:48+00:00</td>
+      <td>1161afda-4b7f-498b-b07c-a19c8ff25383</td>
+      <td>e1bf51a3b72ef02c554f338b28ea67a61f2effa9</td>
+      <td>675.094589</td>
+      <td>06b27c6a29714eead08e96789b9ed37c6b33c67b</td>
+      <td>["1161afda-4b7f-498b-b07c-a19c8ff25383", "1161...</td>
       <td>1</td>
-      <td>bce8b787-e1b5-405c-9b3e-06fc91b31c36</td>
+      <td>1161afda-4b7f-498b-b07c-a19c8ff25383</td>
       <td>1</td>
       <td>1</td>
-      <td>557.434306</td>
-      <td>251.412444</td>
-      <td>66.255347</td>
-      <td>913.562427</td>
-      <td>5574.343056</td>
-      <td>[66.25534670339583, 245.04497173829088, 487.11...</td>
+      <td>638.766181</td>
+      <td>265.737145</td>
+      <td>296.665980</td>
+      <td>944.537976</td>
+      <td>1916.298544</td>
+      <td>[944.5379757024328, 296.6659799710525, 675.094...</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>936cd7af-f2b7-4dd0-a10d-50f55951b7b5</td>
-      <td>2020-03-09 20:38:20+00:00</td>
-      <td>bce8b787-e1b5-405c-9b3e-06fc91b31c36</td>
-      <td>7a4be0ba1a02ae4a27cf152848be77b35181b2ad</td>
-      <td>912.128646</td>
-      <td>00038ba252faef9a24b098ca6594c202b468e6db</td>
-      <td>["bce8b787-e1b5-405c-9b3e-06fc91b31c36", "bce8...</td>
+      <td>bab6d5be-14fe-4705-9765-ad5fc5a14b82</td>
+      <td>2021-05-15 01:52:11+00:00</td>
+      <td>1161afda-4b7f-498b-b07c-a19c8ff25383</td>
+      <td>e1bf51a3b72ef02c554f338b28ea67a61f2effa9</td>
+      <td>860.661434</td>
+      <td>06b27c6a29714eead08e96789b9ed37c6b33c67b</td>
+      <td>["1161afda-4b7f-498b-b07c-a19c8ff25383", "1161...</td>
       <td>1</td>
-      <td>bce8b787-e1b5-405c-9b3e-06fc91b31c36</td>
+      <td>1161afda-4b7f-498b-b07c-a19c8ff25383</td>
       <td>1</td>
       <td>1</td>
-      <td>482.109044</td>
-      <td>274.778605</td>
-      <td>72.114069</td>
-      <td>912.128646</td>
-      <td>4821.090443</td>
-      <td>[555.6353073554191, 143.60326579705617, 72.114...</td>
+      <td>582.538511</td>
+      <td>315.696452</td>
+      <td>135.732576</td>
+      <td>944.537976</td>
+      <td>2912.692555</td>
+      <td>[944.5379757024328, 296.6659799710525, 675.094...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>07ed5409-b5ff-4a88-87b4-c6bd9ed29e1a</td>
-      <td>2020-04-11 09:36:36+00:00</td>
-      <td>bce8b787-e1b5-405c-9b3e-06fc91b31c36</td>
-      <td>7a4be0ba1a02ae4a27cf152848be77b35181b2ad</td>
-      <td>451.643311</td>
-      <td>00038ba252faef9a24b098ca6594c202b468e6db</td>
-      <td>["bce8b787-e1b5-405c-9b3e-06fc91b31c36", "bce8...</td>
+      <td>d12ec21f-c115-45c4-b5c9-904578faa733</td>
+      <td>2021-05-01 23:42:34+00:00</td>
+      <td>1161afda-4b7f-498b-b07c-a19c8ff25383</td>
+      <td>e1bf51a3b72ef02c554f338b28ea67a61f2effa9</td>
+      <td>944.537976</td>
+      <td>06b27c6a29714eead08e96789b9ed37c6b33c67b</td>
+      <td>["1161afda-4b7f-498b-b07c-a19c8ff25383"]</td>
       <td>1</td>
-      <td>bce8b787-e1b5-405c-9b3e-06fc91b31c36</td>
-      <td>1</td>
-      <td>1</td>
-      <td>574.573381</td>
-      <td>237.089251</td>
-      <td>68.484679</td>
-      <td>912.128646</td>
-      <td>5745.733814</td>
-      <td>[439.3317003697285, 544.3782438612366, 649.361...</td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>944.537976</td>
+      <td>0.000000</td>
+      <td>944.537976</td>
+      <td>944.537976</td>
+      <td>944.537976</td>
+      <td>[944.5379757024328]</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>48fc743c-60af-42b0-8658-2fe82e6a8c08</td>
-      <td>2020-02-01 13:43:27+00:00</td>
-      <td>bce8b787-e1b5-405c-9b3e-06fc91b31c36</td>
-      <td>7a4be0ba1a02ae4a27cf152848be77b35181b2ad</td>
-      <td>72.114069</td>
-      <td>00038ba252faef9a24b098ca6594c202b468e6db</td>
-      <td>["bce8b787-e1b5-405c-9b3e-06fc91b31c36", "bce8...</td>
+      <td>c1adb330-64c2-40c1-931a-86ba8dde545d</td>
+      <td>2021-05-14 06:56:31+00:00</td>
+      <td>1161afda-4b7f-498b-b07c-a19c8ff25383</td>
+      <td>e1bf51a3b72ef02c554f338b28ea67a61f2effa9</td>
+      <td>135.732576</td>
+      <td>06b27c6a29714eead08e96789b9ed37c6b33c67b</td>
+      <td>["1161afda-4b7f-498b-b07c-a19c8ff25383", "1161...</td>
       <td>1</td>
-      <td>bce8b787-e1b5-405c-9b3e-06fc91b31c36</td>
+      <td>1161afda-4b7f-498b-b07c-a19c8ff25383</td>
       <td>1</td>
       <td>1</td>
-      <td>368.225832</td>
-      <td>244.774665</td>
-      <td>72.114069</td>
-      <td>963.814082</td>
-      <td>3682.258322</td>
-      <td>[392.77047614406723, 420.9638784860715, 254.77...</td>
+      <td>513.007780</td>
+      <td>316.871739</td>
+      <td>135.732576</td>
+      <td>944.537976</td>
+      <td>2052.031121</td>
+      <td>[944.5379757024328, 296.6659799710525, 675.094...</td>
     </tr>
   </tbody>
 </table>

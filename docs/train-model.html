@@ -1,12 +1,14 @@
 ---
 
-title: Title
+title: Train Model
+
 
 keywords: fastai
 sidebar: home_sidebar
 
-
-
+summary: "This step of the pipeline takes sampled data and uses Dask XGBoost implementation to train an XGBoost model for fraud classification. Model is then validated against validation dataset and copied to a place that can be use for the live fraud prediction service."
+description: "This step of the pipeline takes sampled data and uses Dask XGBoost implementation to train an XGBoost model for fraud classification. Model is then validated against validation dataset and copied to a place that can be use for the live fraud prediction service."
+nb_path: "05_train-model.ipynb"
 ---
 <!--
 
@@ -27,21 +29,6 @@ sidebar: home_sidebar
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Train-Model">Train Model<a class="anchor-link" href="#Train-Model"> </a></h3><blockquote><p>This step of the pipeline takes sampled data and uses Dask XGBoost implementation to train an XGBoost model for fraud classification. Model is then validated against validation dataset and copied to a place that can be use for the live fraud prediction service.</p>
-</blockquote>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -67,7 +54,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="setup" class="doc_header"><code>setup</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/model/train.py#L30" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>setup</code>(<strong><code>job</code></strong>:<a href="/fraud_poc/jobs#TrainingDataJob"><code>TrainingDataJob</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
+<h4 id="setup" class="doc_header"><code>setup</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/model/train.py#L30" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>setup</code>(<strong><code>job</code></strong>:<a href="/fraud_poc/jobs.html#TrainingDataJob"><code>TrainingDataJob</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
 </blockquote>
 
 </div>
@@ -105,7 +92,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="train_model" class="doc_header"><code>train_model</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/model/train.py#L87" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>train_model</code>(<strong><code>job</code></strong>:<a href="/fraud_poc/jobs#TrainModelJob"><code>TrainModelJob</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
+<h4 id="train_model" class="doc_header"><code>train_model</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/model/train.py#L87" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>train_model</code>(<strong><code>job</code></strong>:<a href="/fraud_poc/jobs.html#TrainModelJob"><code>TrainModelJob</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
 </blockquote>
 
 </div>
@@ -136,7 +123,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="validate_model" class="doc_header"><code>validate_model</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/model/train.py#L116" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>validate_model</code>(<strong><code>job</code></strong>:<a href="/fraud_poc/jobs#TrainModelJob"><code>TrainModelJob</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
+<h4 id="validate_model" class="doc_header"><code>validate_model</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/model/train.py#L116" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>validate_model</code>(<strong><code>job</code></strong>:<a href="/fraud_poc/jobs.html#TrainModelJob"><code>TrainModelJob</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
 </blockquote>
 
 </div>
@@ -145,6 +132,13 @@ sidebar: home_sidebar
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -182,35 +176,56 @@ sidebar: home_sidebar
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>2020-07-09 11:19:49,591 | INFO | fraud-poc 0.0.1-training model.train leos13 11685 | Setup {train_job}... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-09T11:19:49.591468+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-2020-07-09 11:19:51,091 | INFO | fraud-poc 0.0.1-training model.train leos13 11685 | Loading training data ./data/training/sampled/... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-09T11:19:49.591468+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-/opt/dev/anaconda3/envs/fraud-poc/lib/python3.7/site-packages/dask_ml/model_selection/_split.py:469: FutureWarning: The default value for &#39;shuffle&#39; must be specified when splitting DataFrames. In the future DataFrames will automatically be shuffled within blocks prior to splitting. Specify &#39;shuffle=True&#39; to adopt the future behavior now, or &#39;shuffle=False&#39; to retain the previous behavior.
-  category=FutureWarning,
-2020-07-09 11:19:51,537 | INFO | fraud-poc 0.0.1-training model.train leos13 11685 | Training XGBoost model... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-09T11:19:49.591468+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-2020-07-09 11:19:55,428 | INFO | fraud-poc 0.0.1-training model.train leos13 11685 | Saved model for validation in ./data/model/xgb/90604e9d-3364-4abd-846e-b883542bd886.pkl | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-09T11:19:49.591468+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-INFO:fraud-poc 0.0.1-training model.train leos13 11685:Saved model for validation in ./data/model/xgb/90604e9d-3364-4abd-846e-b883542bd886.pkl
-2020-07-09 11:19:57,052 | INFO | fraud-poc 0.0.1-training model.train leos13 11685 | Loading model for validation from {job.model_path}... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-09T11:19:49.591468+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-INFO:fraud-poc 0.0.1-training model.train leos13 11685:Loading model for validation from {job.model_path}...
-2020-07-09 11:19:58,116 | INFO | fraud-poc 0.0.1-training model.train leos13 11685 | Loading validation data from ./data/training/validation/... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-09T11:19:49.591468+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-INFO:fraud-poc 0.0.1-training model.train leos13 11685:Loading validation data from ./data/training/validation/...
-2020-07-09 11:19:58,157 | INFO | fraud-poc 0.0.1-training model.train leos13 11685 | Predicting labels for validation... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-09T11:19:49.591468+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-INFO:fraud-poc 0.0.1-training model.train leos13 11685:Predicting labels for validation...
-2020-07-09 11:20:00,789 | INFO | fraud-poc 0.0.1-training model.train leos13 11685 | Validation score: {&#39;tp&#39;: 1684, &#39;tn&#39;: 53, &#39;fp&#39;: 198, &#39;fn&#39;: 1, &#39;prec&#39;: 0.8947927736450585, &#39;rec&#39;: 0.9994065281899109, &#39;tpr&#39;: 0.9994065281899109, &#39;tnr&#39;: 0.21115537848605578, &#39;acc&#39;: 0.6052809533379834, &#39;f1&#39;: 0.944210821418559} | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-09T11:19:49.591468+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-INFO:fraud-poc 0.0.1-training model.train leos13 11685:Validation score: {&#39;tp&#39;: 1684, &#39;tn&#39;: 53, &#39;fp&#39;: 198, &#39;fn&#39;: 1, &#39;prec&#39;: 0.8947927736450585, &#39;rec&#39;: 0.9994065281899109, &#39;tpr&#39;: 0.9994065281899109, &#39;tnr&#39;: 0.21115537848605578, &#39;acc&#39;: 0.6052809533379834, &#39;f1&#39;: 0.944210821418559}
-2020-07-09 11:20:00,792 | INFO | fraud-poc 0.0.1-training model.train leos13 11685 | Saved model for production in ./data/model/xgb/latest-ok.pkl | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-09T11:19:49.591468+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-INFO:fraud-poc 0.0.1-training model.train leos13 11685:Saved model for production in ./data/model/xgb/latest-ok.pkl
+<pre>2021-05-18 20:49:41,291 | INFO | fraud-poc training model.train ALT00617 75610 | Setup {train_job}... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2021-05-18T20:49:41.291616+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
+/opt/dev/anaconda3/envs/fraud-poc/lib/python3.8/site-packages/distributed/node.py:160: UserWarning: Port 8787 is already in use.
+Perhaps you already have a cluster running?
+Hosting the HTTP server on port 58850 instead
+  warnings.warn(
+2021-05-18 20:49:42,357 | INFO | fraud-poc training model.train ALT00617 75610 | Loading training data ./data/training/sampled/... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2021-05-18T20:49:41.291616+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
+2021-05-18 20:49:42,427 | INFO | fraud-poc training model.train ALT00617 75610 | Training XGBoost model... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2021-05-18T20:49:41.291616+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
+Traceback (most recent call last):
+  File &#34;/Users/dev/leosmerling/fraud-poc/fraud_poc/model/train.py&#34;, line 104, in train_model
+    model = dask_xgboost.train(client, params, X_train, y_train,
+  File &#34;/opt/dev/anaconda3/envs/fraud-poc/lib/python3.8/site-packages/dask/base.py&#34;, line 285, in compute
+    (result,) = compute(self, traverse=False, **kwargs)
+  File &#34;/opt/dev/anaconda3/envs/fraud-poc/lib/python3.8/site-packages/dask/base.py&#34;, line 568, in compute
+    return repack([f(r, *a) for r, (f, a) in zip(results, postcomputes)])
+TypeError: &#39;coroutine&#39; object is not iterable
+2021-05-18 20:49:42,433 | ERROR | fraud-poc training model.train ALT00617 75610 | &#39;coroutine&#39; object is not iterable | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2021-05-18T20:49:41.291616+00:00 | stream.name= | stream.msg_id= | stream.consumer_group= | trace=%5B%22Traceback%20%28most%20recent%20call%20last%29%3A%5Cn%22%2C%20%22%20%20File%20%5C%22/Users/dev/leosmerling/fraud-poc/fraud_poc/model/train.py%5C%22%2C%20line%20104%2C%20in%20train_model%5Cn%20%20%20%20model%20%3D%20dask_xgboost.train%28client%2C%20params%2C%20X_train%2C%20y_train%2C%5Cn%22%2C%20%22%20%20File%20%5C%22/opt/dev/anaconda3/envs/fraud-poc/lib/python3.8/site-packages/dask/base.py%5C%22%2C%20line%20285%2C%20in%20compute%5Cn%20%20%20%20%28result%2C%29%20%3D%20compute%28self%2C%20traverse%3DFalse%2C%20%2A%2Akwargs%29%5Cn%22%2C%20%22%20%20File%20%5C%22/opt/dev/anaconda3/envs/fraud-poc/lib/python3.8/site-packages/dask/base.py%5C%22%2C%20line%20568%2C%20in%20compute%5Cn%20%20%20%20return%20repack%28%5Bf%28r%2C%20%2Aa%29%20for%20r%2C%20%28f%2C%20a%29%20in%20zip%28results%2C%20postcomputes%29%5D%29%5Cn%22%2C%20%22TypeError%3A%20%27coroutine%27%20object%20is%20not%20iterable%5Cn%22%5D
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
 </pre>
 </div>
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>TrainModelJob(train_data=&#39;./data/training/sampled/&#39;, validation_data=&#39;./data/training/validation/&#39;, model_path=&#39;./data/model/xgb/latest-ok.pkl&#39;, evals={&#39;validation_0&#39;: {&#39;error&#39;: [0.067927, 0.067927, 0.067927, 0.067927, 0.067927, 0.067927, 0.067927, 0.067927, 0.067227, 0.067227]}}, test_roc_curve={}, validation_score={&#39;tp&#39;: 1684, &#39;tn&#39;: 53, &#39;fp&#39;: 198, &#39;fn&#39;: 1, &#39;prec&#39;: 0.8947927736450585, &#39;rec&#39;: 0.9994065281899109, &#39;tpr&#39;: 0.9994065281899109, &#39;tnr&#39;: 0.21115537848605578, &#39;acc&#39;: 0.6052809533379834, &#39;f1&#39;: 0.944210821418559})</pre>
-</div>
-
 </div>
 
 </div>

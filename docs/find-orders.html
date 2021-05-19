@@ -1,12 +1,14 @@
 ---
 
-title: Title
+title: Find Orders
+
 
 keywords: fastai
 sidebar: home_sidebar
 
-
-
+summary: "Convenience endpoint to find order examples in Redis database"
+description: "Convenience endpoint to find order examples in Redis database"
+nb_path: "09_find-orders.ipynb"
 ---
 <!--
 
@@ -20,21 +22,6 @@ sidebar: home_sidebar
 
 <div class="container" id="notebook-container">
         
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Find-Orders">Find Orders<a class="anchor-link" href="#Find-Orders"> </a></h3><blockquote><p>Convenience endpoint to find order examples in Redis database</p>
-</blockquote>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -80,6 +67,13 @@ sidebar: home_sidebar
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Test-from-notebook">Test from notebook<a class="anchor-link" href="#Test-from-notebook"> </a></h3>
@@ -114,7 +108,7 @@ sidebar: home_sidebar
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>2020-08-08 08:32:24,821 | INFO | fraud-poc 0.0.1-service test.find_orders leos13 4568 | Connecting to database redis://localhost:6379... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-08-08T08:32:24.821535+00:00
+<pre>2020-07-08 14:47:56,971 | INFO | fraud-poc 0.0.1-service test.find_orders leos13 27404 | Connecting to database redis://localhost:6379... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T14:47:56.971741+00:00
 </pre>
 </div>
 </div>
@@ -122,7 +116,33 @@ sidebar: home_sidebar
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[]
+<pre>[b&#39;7545576ffe1b7c1d9d8d2e82d0191fa057df695f&#39;, b&#39;71264e73-3061-4990-8297-6c09314b1a9d&#39;, b&#39;b1f59a4bd99f595478e4259a6e3576d1081cbee8&#39;, b&#39;fraud_poc.0x0x1_training.data.feature_calc&#39;, b&#39;d16ed4b6-6e6f-4788-b45b-acd6609d7649&#39;, b&#39;fraud_poc.0x0x1_training.data.make_sample_data.submit_job&#39;, b&#39;fc55c49c955c439eff004e08ddc5c35e59023a6a&#39;, b&#39;a7163f535fb73b3f8de90ca74387b22dc68276c3&#39;, b&#39;63f6259e971adaf70ad742be1a1707b48712c02b&#39;, b&#39;0ccf564669e982312eec408bb103ae929a01c7e6&#39;]
+
+{&#39;order_id&#39;: &#39;ce4798f5-6127-4d6e-bf1d-dda810eab26b&#39;, &#39;order_date&#39;: &#39;2020-07-07T06:33:18+00:00&#39;, &#39;customer_id&#39;: &#39;271d8c5e-e4e3-4377-a3e3-673ccf153664&#39;, &#39;ip_addr&#39;: &#39;f95e9c978b7f88dde5b9eb39417070251603db2d&#39;, &#39;order_amount&#39;: 916.7097195892065, &#39;email&#39;: &#39;7545576ffe1b7c1d9d8d2e82d0191fa057df695f&#39;, &#39;customer_id_by_email&#39;: &#39;[&#34;271d8c5e-e4e3-4377-a3e3-673ccf153664&#34;, &#34;271d8c5e-e4e3-4377-a3e3-673ccf153664&#34;, &#34;271d8c5e-e4e3-4377-a3e3-673ccf153664&#34;, &#34;271d8c5e-e4e3-4377-a3e3-673ccf153664&#34;, &#34;271d8c5e-e4e3-4377-a3e3-673ccf153664&#34;, &#34;271d8c5e-e4e3-4377-a3e3-673ccf153664&#34;, &#34;271d8c5e-e4e3-4377-a3e3-673ccf153664&#34;, &#34;271d8c5e-e4e3-4377-a3e3-673ccf153664&#34;, &#34;271d8c5e-e4e3-4377-a3e3-673ccf153664&#34;, &#34;271d8c5e-e4e3-4377-a3e3-673ccf153664&#34;]&#39;, &#39;num_customer_id_by_email&#39;: 1, &#39;last_customer_id_by_email&#39;: &#39;271d8c5e-e4e3-4377-a3e3-673ccf153664&#39;, &#39;same_customer_id_by_email&#39;: 1, &#39;known_customer_id_by_email&#39;: 1, &#39;order_amount_mean_by_email&#39;: 536.4169276281408, &#39;order_amount_std_by_email&#39;: 303.15773466137165, &#39;order_amount_min_by_email&#39;: 68.2940660160266, &#39;order_amount_max_by_email&#39;: 916.7097195892065, &#39;order_amount_sum_by_email&#39;: 5364.169276281408, &#39;order_amount_by_email&#39;: &#39;[776.9625708631996, 779.1408217338134, 454.66931470215576, 769.0840886685221, 854.4217419999278, 198.35357128773578, 68.2940660160266, 164.22372869469348, 382.3096527261267, 916.7097195892065]&#39;, &#39;key&#39;: &#39;7545576ffe1b7c1d9d8d2e82d0191fa057df695f&#39;}
+
+
+{&#39;order_id&#39;: &#39;eca4330a-9f6e-44dd-aea8-f8d7c54c8950&#39;, &#39;order_date&#39;: &#39;2020-07-04T23:27:45+00:00&#39;, &#39;email&#39;: &#39;9fc4829456e3666af2644e22dda27036f1bd95c6&#39;, &#39;ip_addr&#39;: &#39;68bf5c2a7d0cc0107eebaaf105ecef8faf51b812&#39;, &#39;order_amount&#39;: 824.7756099864736, &#39;customer_id&#39;: &#39;71264e73-3061-4990-8297-6c09314b1a9d&#39;, &#39;email_by_customer_id&#39;: &#39;[&#34;9fc4829456e3666af2644e22dda27036f1bd95c6&#34;, &#34;9fc4829456e3666af2644e22dda27036f1bd95c6&#34;, &#34;9fc4829456e3666af2644e22dda27036f1bd95c6&#34;, &#34;9fc4829456e3666af2644e22dda27036f1bd95c6&#34;, &#34;9fc4829456e3666af2644e22dda27036f1bd95c6&#34;, &#34;9fc4829456e3666af2644e22dda27036f1bd95c6&#34;, &#34;9fc4829456e3666af2644e22dda27036f1bd95c6&#34;, &#34;9fc4829456e3666af2644e22dda27036f1bd95c6&#34;, &#34;9fc4829456e3666af2644e22dda27036f1bd95c6&#34;, &#34;9fc4829456e3666af2644e22dda27036f1bd95c6&#34;]&#39;, &#39;ip_addr_by_customer_id&#39;: &#39;[&#34;68bf5c2a7d0cc0107eebaaf105ecef8faf51b812&#34;, &#34;73aa85a1d3f0e90e5f6a51f57f1ac211dcccc992&#34;, &#34;68bf5c2a7d0cc0107eebaaf105ecef8faf51b812&#34;, &#34;68bf5c2a7d0cc0107eebaaf105ecef8faf51b812&#34;, &#34;68bf5c2a7d0cc0107eebaaf105ecef8faf51b812&#34;, &#34;68bf5c2a7d0cc0107eebaaf105ecef8faf51b812&#34;, &#34;68bf5c2a7d0cc0107eebaaf105ecef8faf51b812&#34;, &#34;68bf5c2a7d0cc0107eebaaf105ecef8faf51b812&#34;, &#34;8fd24baa1e1e0985725713e460b0410d66692cd0&#34;, &#34;68bf5c2a7d0cc0107eebaaf105ecef8faf51b812&#34;]&#39;, &#39;num_email_by_customer_id&#39;: 1, &#39;num_ip_addr_by_customer_id&#39;: 3, &#39;last_email_by_customer_id&#39;: &#39;9fc4829456e3666af2644e22dda27036f1bd95c6&#39;, &#39;last_ip_addr_by_customer_id&#39;: &#39;8fd24baa1e1e0985725713e460b0410d66692cd0&#39;, &#39;same_email_by_customer_id&#39;: 1, &#39;same_ip_addr_by_customer_id&#39;: 0, &#39;known_email_by_customer_id&#39;: 1, &#39;known_ip_addr_by_customer_id&#39;: 1, &#39;order_amount_mean_by_customer_id&#39;: 490.2410243712767, &#39;order_amount_std_by_customer_id&#39;: 294.8716825757671, &#39;order_amount_min_by_customer_id&#39;: 0.19606797264004605, &#39;order_amount_max_by_customer_id&#39;: 824.7756099864736, &#39;order_amount_sum_by_customer_id&#39;: 4902.410243712767, &#39;order_amount_by_customer_id&#39;: &#39;[753.9342527900288, 669.3121208428819, 8.367609561072186, 672.6848052755605, 0.19606797264004605, 491.12294239943566, 340.7134725535139, 810.5019805243855, 330.80138180677477, 824.7756099864736]&#39;, &#39;key&#39;: &#39;71264e73-3061-4990-8297-6c09314b1a9d&#39;}
+
+
+{&#39;order_id&#39;: &#39;0f4de1e7-ae83-47fb-a45c-98da4e399b4b&#39;, &#39;order_date&#39;: &#39;2020-07-06T10:59:28+00:00&#39;, &#39;customer_id&#39;: &#39;1faf28b9-0dff-47f1-bcd8-689053805b16&#39;, &#39;ip_addr&#39;: &#39;95c99f65815f00f09a3fb62f129f4a80adce6301&#39;, &#39;order_amount&#39;: 441.15932965006243, &#39;email&#39;: &#39;b1f59a4bd99f595478e4259a6e3576d1081cbee8&#39;, &#39;customer_id_by_email&#39;: &#39;[&#34;1faf28b9-0dff-47f1-bcd8-689053805b16&#34;, &#34;1faf28b9-0dff-47f1-bcd8-689053805b16&#34;, &#34;1faf28b9-0dff-47f1-bcd8-689053805b16&#34;, &#34;1faf28b9-0dff-47f1-bcd8-689053805b16&#34;, &#34;1faf28b9-0dff-47f1-bcd8-689053805b16&#34;, &#34;1faf28b9-0dff-47f1-bcd8-689053805b16&#34;, &#34;1faf28b9-0dff-47f1-bcd8-689053805b16&#34;, &#34;1faf28b9-0dff-47f1-bcd8-689053805b16&#34;, &#34;1faf28b9-0dff-47f1-bcd8-689053805b16&#34;, &#34;1faf28b9-0dff-47f1-bcd8-689053805b16&#34;]&#39;, &#39;num_customer_id_by_email&#39;: 1, &#39;last_customer_id_by_email&#39;: &#39;1faf28b9-0dff-47f1-bcd8-689053805b16&#39;, &#39;same_customer_id_by_email&#39;: 1, &#39;known_customer_id_by_email&#39;: 1, &#39;order_amount_mean_by_email&#39;: 569.0463796131298, &#39;order_amount_std_by_email&#39;: 311.9103648006338, &#39;order_amount_min_by_email&#39;: 32.77086694625486, &#39;order_amount_max_by_email&#39;: 977.8903299747492, &#39;order_amount_sum_by_email&#39;: 5690.463796131298, &#39;order_amount_by_email&#39;: &#39;[473.40364407038294, 977.8903299747492, 32.77086694625486, 944.2738113634712, 791.56430497176, 227.61325657735566, 372.9278534910816, 943.5715406667599, 485.28885841942196, 441.15932965006243]&#39;, &#39;key&#39;: &#39;b1f59a4bd99f595478e4259a6e3576d1081cbee8&#39;}
+
+WRONGTYPE Operation against a key holding the wrong kind of value
+
+{&#39;order_id&#39;: &#39;5d7b5152-b750-461c-a8b4-ea14d1e43f0f&#39;, &#39;order_date&#39;: &#39;2020-07-08T03:26:30+00:00&#39;, &#39;email&#39;: &#39;28621e956af371c3bbc1c77c3d50510b9619975a&#39;, &#39;ip_addr&#39;: &#39;447f3c92f2f7bb012279ad8d46d84d68fcde9e5c&#39;, &#39;order_amount&#39;: 125.26160318048329, &#39;customer_id&#39;: &#39;d16ed4b6-6e6f-4788-b45b-acd6609d7649&#39;, &#39;email_by_customer_id&#39;: &#39;[&#34;28621e956af371c3bbc1c77c3d50510b9619975a&#34;, &#34;f1f376c1301ba9ed548c90472ce4a21f4daa3401&#34;, &#34;28621e956af371c3bbc1c77c3d50510b9619975a&#34;, &#34;f1f376c1301ba9ed548c90472ce4a21f4daa3401&#34;, &#34;f1f376c1301ba9ed548c90472ce4a21f4daa3401&#34;, &#34;f1f376c1301ba9ed548c90472ce4a21f4daa3401&#34;, &#34;28621e956af371c3bbc1c77c3d50510b9619975a&#34;, &#34;f1f376c1301ba9ed548c90472ce4a21f4daa3401&#34;, &#34;f1f376c1301ba9ed548c90472ce4a21f4daa3401&#34;, &#34;28621e956af371c3bbc1c77c3d50510b9619975a&#34;]&#39;, &#39;ip_addr_by_customer_id&#39;: &#39;[&#34;447f3c92f2f7bb012279ad8d46d84d68fcde9e5c&#34;, &#34;2afb85754e50ccea1ad1fb34ca6743b87cf6f6f7&#34;, &#34;447f3c92f2f7bb012279ad8d46d84d68fcde9e5c&#34;, &#34;1631d2687066bc38c3aa6a02e685aa0dee2cf9de&#34;, &#34;2afb85754e50ccea1ad1fb34ca6743b87cf6f6f7&#34;, &#34;2afb85754e50ccea1ad1fb34ca6743b87cf6f6f7&#34;, &#34;447f3c92f2f7bb012279ad8d46d84d68fcde9e5c&#34;, &#34;2afb85754e50ccea1ad1fb34ca6743b87cf6f6f7&#34;, &#34;2afb85754e50ccea1ad1fb34ca6743b87cf6f6f7&#34;, &#34;447f3c92f2f7bb012279ad8d46d84d68fcde9e5c&#34;]&#39;, &#39;num_email_by_customer_id&#39;: 2, &#39;num_ip_addr_by_customer_id&#39;: 3, &#39;last_email_by_customer_id&#39;: &#39;f1f376c1301ba9ed548c90472ce4a21f4daa3401&#39;, &#39;last_ip_addr_by_customer_id&#39;: &#39;2afb85754e50ccea1ad1fb34ca6743b87cf6f6f7&#39;, &#39;same_email_by_customer_id&#39;: 0, &#39;same_ip_addr_by_customer_id&#39;: 0, &#39;known_email_by_customer_id&#39;: 1, &#39;known_ip_addr_by_customer_id&#39;: 1, &#39;order_amount_mean_by_customer_id&#39;: 369.4995727464527, &#39;order_amount_std_by_customer_id&#39;: 313.7199845399928, &#39;order_amount_min_by_customer_id&#39;: 8.431115437528058, &#39;order_amount_max_by_customer_id&#39;: 918.1339306716898, &#39;order_amount_sum_by_customer_id&#39;: 3694.995727464527, &#39;order_amount_by_customer_id&#39;: &#39;[918.1339306716898, 408.07103894969896, 472.46229509539586, 578.0469268378529, 819.4238152387287, 30.719056982438374, 8.431115437528058, 306.0812181204576, 28.36472695025405, 125.26160318048329]&#39;, &#39;key&#39;: &#39;d16ed4b6-6e6f-4788-b45b-acd6609d7649&#39;}
+
+WRONGTYPE Operation against a key holding the wrong kind of value
+
+{&#39;order_id&#39;: &#39;2cff1ff4-dabb-4f6f-8efa-5328079eb2d0&#39;, &#39;order_date&#39;: &#39;2020-07-07T05:52:03+00:00&#39;, &#39;customer_id&#39;: &#39;be2952c2-557c-4a04-9614-604293f04f30&#39;, &#39;ip_addr&#39;: &#39;c1308587f69bd0482ecf0b8d04fd3d99608e9082&#39;, &#39;order_amount&#39;: 264.0354901345052, &#39;email&#39;: &#39;fc55c49c955c439eff004e08ddc5c35e59023a6a&#39;, &#39;customer_id_by_email&#39;: &#39;[&#34;be2952c2-557c-4a04-9614-604293f04f30&#34;, &#34;be2952c2-557c-4a04-9614-604293f04f30&#34;, &#34;be2952c2-557c-4a04-9614-604293f04f30&#34;, &#34;be2952c2-557c-4a04-9614-604293f04f30&#34;, &#34;be2952c2-557c-4a04-9614-604293f04f30&#34;, &#34;be2952c2-557c-4a04-9614-604293f04f30&#34;, &#34;be2952c2-557c-4a04-9614-604293f04f30&#34;, &#34;be2952c2-557c-4a04-9614-604293f04f30&#34;, &#34;be2952c2-557c-4a04-9614-604293f04f30&#34;, &#34;be2952c2-557c-4a04-9614-604293f04f30&#34;]&#39;, &#39;num_customer_id_by_email&#39;: 1, &#39;last_customer_id_by_email&#39;: &#39;be2952c2-557c-4a04-9614-604293f04f30&#39;, &#39;same_customer_id_by_email&#39;: 1, &#39;known_customer_id_by_email&#39;: 1, &#39;order_amount_mean_by_email&#39;: 365.6505611706169, &#39;order_amount_std_by_email&#39;: 300.9047976673053, &#39;order_amount_min_by_email&#39;: 34.941870842798764, &#39;order_amount_max_by_email&#39;: 963.928722731538, &#39;order_amount_sum_by_email&#39;: 3656.505611706169, &#39;order_amount_by_email&#39;: &#39;[34.941870842798764, 190.83458040674972, 56.53129607667429, 592.5368305781684, 963.928722731538, 156.2695605499892, 589.6125527834462, 127.06165167618488, 680.7530559261145, 264.0354901345052]&#39;, &#39;key&#39;: &#39;fc55c49c955c439eff004e08ddc5c35e59023a6a&#39;}
+
+
+{&#39;order_id&#39;: &#39;2b27318e-9223-4a33-846e-36c8fa3a66c5&#39;, &#39;order_date&#39;: &#39;2020-07-05T10:29:06+00:00&#39;, &#39;customer_id&#39;: &#39;d9f05eff-5637-45d5-af04-4968d41068ca&#39;, &#39;ip_addr&#39;: &#39;769d1de62792555a835f8b1fa73b1f4f463a2316&#39;, &#39;order_amount&#39;: 755.973509308957, &#39;email&#39;: &#39;a7163f535fb73b3f8de90ca74387b22dc68276c3&#39;, &#39;customer_id_by_email&#39;: &#39;[&#34;d9f05eff-5637-45d5-af04-4968d41068ca&#34;, &#34;d9f05eff-5637-45d5-af04-4968d41068ca&#34;, &#34;d9f05eff-5637-45d5-af04-4968d41068ca&#34;, &#34;d9f05eff-5637-45d5-af04-4968d41068ca&#34;, &#34;d9f05eff-5637-45d5-af04-4968d41068ca&#34;, &#34;d9f05eff-5637-45d5-af04-4968d41068ca&#34;, &#34;d9f05eff-5637-45d5-af04-4968d41068ca&#34;, &#34;d9f05eff-5637-45d5-af04-4968d41068ca&#34;, &#34;d9f05eff-5637-45d5-af04-4968d41068ca&#34;, &#34;d9f05eff-5637-45d5-af04-4968d41068ca&#34;]&#39;, &#39;num_customer_id_by_email&#39;: 1, &#39;last_customer_id_by_email&#39;: &#39;d9f05eff-5637-45d5-af04-4968d41068ca&#39;, &#39;same_customer_id_by_email&#39;: 1, &#39;known_customer_id_by_email&#39;: 1, &#39;order_amount_mean_by_email&#39;: 521.7433745353864, &#39;order_amount_std_by_email&#39;: 263.43384780968285, &#39;order_amount_min_by_email&#39;: 44.45429610583995, &#39;order_amount_max_by_email&#39;: 860.009441228479, &#39;order_amount_sum_by_email&#39;: 5217.433745353864, &#39;order_amount_by_email&#39;: &#39;[748.3773343219309, 454.42303645564306, 44.45429610583995, 438.3239617712044, 860.009441228479, 285.01174642096817, 230.05880403280378, 820.9596772194899, 579.8419384885482, 755.973509308957]&#39;, &#39;key&#39;: &#39;a7163f535fb73b3f8de90ca74387b22dc68276c3&#39;}
+
+
+{&#39;order_id&#39;: &#39;0325e9a9-b24d-4870-bc30-b3abbf89d951&#39;, &#39;order_date&#39;: &#39;2020-06-29T02:20:18+00:00&#39;, &#39;customer_id&#39;: &#39;68cce351-43e0-46f2-b559-e21c7f4ac056&#39;, &#39;ip_addr&#39;: &#39;dcb7d5769abe26524f5bdb379fc84cc93e41cce1&#39;, &#39;order_amount&#39;: 319.6287775874658, &#39;email&#39;: &#39;63f6259e971adaf70ad742be1a1707b48712c02b&#39;, &#39;customer_id_by_email&#39;: &#39;[&#34;68cce351-43e0-46f2-b559-e21c7f4ac056&#34;, &#34;68cce351-43e0-46f2-b559-e21c7f4ac056&#34;, &#34;68cce351-43e0-46f2-b559-e21c7f4ac056&#34;, &#34;68cce351-43e0-46f2-b559-e21c7f4ac056&#34;, &#34;68cce351-43e0-46f2-b559-e21c7f4ac056&#34;, &#34;68cce351-43e0-46f2-b559-e21c7f4ac056&#34;, &#34;68cce351-43e0-46f2-b559-e21c7f4ac056&#34;, &#34;68cce351-43e0-46f2-b559-e21c7f4ac056&#34;, &#34;68cce351-43e0-46f2-b559-e21c7f4ac056&#34;, &#34;68cce351-43e0-46f2-b559-e21c7f4ac056&#34;]&#39;, &#39;num_customer_id_by_email&#39;: 1, &#39;last_customer_id_by_email&#39;: &#39;68cce351-43e0-46f2-b559-e21c7f4ac056&#39;, &#39;same_customer_id_by_email&#39;: 1, &#39;known_customer_id_by_email&#39;: 1, &#39;order_amount_mean_by_email&#39;: 358.77210387036837, &#39;order_amount_std_by_email&#39;: 249.26074575701048, &#39;order_amount_min_by_email&#39;: 56.72916619408819, &#39;order_amount_max_by_email&#39;: 808.8563011377746, &#39;order_amount_sum_by_email&#39;: 3587.7210387036835, &#39;order_amount_by_email&#39;: &#39;[770.6626862164142, 184.1097760001009, 56.72916619408819, 808.8563011377746, 220.99860267292527, 361.0570636349538, 249.87462332130627, 519.7858826914431, 96.01815924721113, 319.6287775874658]&#39;, &#39;key&#39;: &#39;63f6259e971adaf70ad742be1a1707b48712c02b&#39;}
+
+
+{&#39;order_id&#39;: &#39;11b4e84c-00ef-4df2-885d-0d43dfcaef8d&#39;, &#39;order_date&#39;: &#39;2020-07-04T19:31:48+00:00&#39;, &#39;customer_id&#39;: &#39;7e529745-903b-4ada-87b5-2f8e109a74b9&#39;, &#39;ip_addr&#39;: &#39;c9401720b5df98d10e3d8f4b9c0d5b968b770eb8&#39;, &#39;order_amount&#39;: 943.9676441188888, &#39;email&#39;: &#39;0ccf564669e982312eec408bb103ae929a01c7e6&#39;, &#39;customer_id_by_email&#39;: &#39;[&#34;7e529745-903b-4ada-87b5-2f8e109a74b9&#34;, &#34;7e529745-903b-4ada-87b5-2f8e109a74b9&#34;, &#34;7e529745-903b-4ada-87b5-2f8e109a74b9&#34;, &#34;7e529745-903b-4ada-87b5-2f8e109a74b9&#34;, &#34;7e529745-903b-4ada-87b5-2f8e109a74b9&#34;, &#34;7e529745-903b-4ada-87b5-2f8e109a74b9&#34;, &#34;7e529745-903b-4ada-87b5-2f8e109a74b9&#34;, &#34;7e529745-903b-4ada-87b5-2f8e109a74b9&#34;, &#34;7e529745-903b-4ada-87b5-2f8e109a74b9&#34;, &#34;7e529745-903b-4ada-87b5-2f8e109a74b9&#34;]&#39;, &#39;num_customer_id_by_email&#39;: 1, &#39;last_customer_id_by_email&#39;: &#39;7e529745-903b-4ada-87b5-2f8e109a74b9&#39;, &#39;same_customer_id_by_email&#39;: 1, &#39;known_customer_id_by_email&#39;: 1, &#39;order_amount_mean_by_email&#39;: 644.4475194502905, &#39;order_amount_std_by_email&#39;: 242.7789324121482, &#39;order_amount_min_by_email&#39;: 146.72337429600424, &#39;order_amount_max_by_email&#39;: 976.7389160054746, &#39;order_amount_sum_by_email&#39;: 6444.475194502906, &#39;order_amount_by_email&#39;: &#39;[568.7942849981113, 976.7389160054746, 886.7012632454035, 439.7068454750155, 525.0132677311293, 146.72337429600424, 535.5882505424725, 723.9475776906961, 697.2937703997104, 943.9676441188888]&#39;, &#39;key&#39;: &#39;0ccf564669e982312eec408bb103ae929a01c7e6&#39;}
+
 </pre>
 </div>
 </div>
@@ -132,7 +152,14 @@ sidebar: home_sidebar
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[]</pre>
+<pre>[OrderInfo(order_id=&#39;ce4798f5-6127-4d6e-bf1d-dda810eab26b&#39;, customer_id=&#39;271d8c5e-e4e3-4377-a3e3-673ccf153664&#39;, order_date=datetime.datetime(2020, 7, 7, 6, 33, 18, tzinfo=tzutc()), email=&#39;7545576ffe1b7c1d9d8d2e82d0191fa057df695f&#39;, ip_addr=&#39;f95e9c978b7f88dde5b9eb39417070251603db2d&#39;, order_amount=916.7097195892065, location_lat=0.0, location_long=0.0),
+ OrderInfo(order_id=&#39;eca4330a-9f6e-44dd-aea8-f8d7c54c8950&#39;, customer_id=&#39;71264e73-3061-4990-8297-6c09314b1a9d&#39;, order_date=datetime.datetime(2020, 7, 4, 23, 27, 45, tzinfo=tzutc()), email=&#39;9fc4829456e3666af2644e22dda27036f1bd95c6&#39;, ip_addr=&#39;68bf5c2a7d0cc0107eebaaf105ecef8faf51b812&#39;, order_amount=824.7756099864736, location_lat=0.0, location_long=0.0),
+ OrderInfo(order_id=&#39;0f4de1e7-ae83-47fb-a45c-98da4e399b4b&#39;, customer_id=&#39;1faf28b9-0dff-47f1-bcd8-689053805b16&#39;, order_date=datetime.datetime(2020, 7, 6, 10, 59, 28, tzinfo=tzutc()), email=&#39;b1f59a4bd99f595478e4259a6e3576d1081cbee8&#39;, ip_addr=&#39;95c99f65815f00f09a3fb62f129f4a80adce6301&#39;, order_amount=441.15932965006243, location_lat=0.0, location_long=0.0),
+ OrderInfo(order_id=&#39;5d7b5152-b750-461c-a8b4-ea14d1e43f0f&#39;, customer_id=&#39;d16ed4b6-6e6f-4788-b45b-acd6609d7649&#39;, order_date=datetime.datetime(2020, 7, 8, 3, 26, 30, tzinfo=tzutc()), email=&#39;28621e956af371c3bbc1c77c3d50510b9619975a&#39;, ip_addr=&#39;447f3c92f2f7bb012279ad8d46d84d68fcde9e5c&#39;, order_amount=125.26160318048329, location_lat=0.0, location_long=0.0),
+ OrderInfo(order_id=&#39;2cff1ff4-dabb-4f6f-8efa-5328079eb2d0&#39;, customer_id=&#39;be2952c2-557c-4a04-9614-604293f04f30&#39;, order_date=datetime.datetime(2020, 7, 7, 5, 52, 3, tzinfo=tzutc()), email=&#39;fc55c49c955c439eff004e08ddc5c35e59023a6a&#39;, ip_addr=&#39;c1308587f69bd0482ecf0b8d04fd3d99608e9082&#39;, order_amount=264.0354901345052, location_lat=0.0, location_long=0.0),
+ OrderInfo(order_id=&#39;2b27318e-9223-4a33-846e-36c8fa3a66c5&#39;, customer_id=&#39;d9f05eff-5637-45d5-af04-4968d41068ca&#39;, order_date=datetime.datetime(2020, 7, 5, 10, 29, 6, tzinfo=tzutc()), email=&#39;a7163f535fb73b3f8de90ca74387b22dc68276c3&#39;, ip_addr=&#39;769d1de62792555a835f8b1fa73b1f4f463a2316&#39;, order_amount=755.973509308957, location_lat=0.0, location_long=0.0),
+ OrderInfo(order_id=&#39;0325e9a9-b24d-4870-bc30-b3abbf89d951&#39;, customer_id=&#39;68cce351-43e0-46f2-b559-e21c7f4ac056&#39;, order_date=datetime.datetime(2020, 6, 29, 2, 20, 18, tzinfo=tzutc()), email=&#39;63f6259e971adaf70ad742be1a1707b48712c02b&#39;, ip_addr=&#39;dcb7d5769abe26524f5bdb379fc84cc93e41cce1&#39;, order_amount=319.6287775874658, location_lat=0.0, location_long=0.0),
+ OrderInfo(order_id=&#39;11b4e84c-00ef-4df2-885d-0d43dfcaef8d&#39;, customer_id=&#39;7e529745-903b-4ada-87b5-2f8e109a74b9&#39;, order_date=datetime.datetime(2020, 7, 4, 19, 31, 48, tzinfo=tzutc()), email=&#39;0ccf564669e982312eec408bb103ae929a01c7e6&#39;, ip_addr=&#39;c9401720b5df98d10e3d8f4b9c0d5b968b770eb8&#39;, order_amount=943.9676441188888, location_lat=0.0, location_long=0.0)]</pre>
 </div>
 
 </div>

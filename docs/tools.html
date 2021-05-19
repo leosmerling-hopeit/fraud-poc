@@ -2,11 +2,13 @@
 
 title: Title
 
+
 keywords: fastai
 sidebar: home_sidebar
 
 
 
+nb_path: "99_tools.ipynb"
 ---
 <!--
 
@@ -34,11 +36,10 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Update python modules from notebook and creates openapi-*.json files</span>
-
-<span class="o">!</span>nbdev_build_lib
-<span class="o">!</span><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>. <span class="o">&amp;&amp;</span> hopeit_openapi create --config-files<span class="o">=</span>config/server.json,config/training-pipeline.json --api-version<span class="o">=</span><span class="m">0</span>.0.1 --title<span class="o">=</span><span class="s2">&quot;Fraud POC Training Pipeline&quot;</span> --description<span class="o">=</span><span class="s2">&quot;Fraud POC&quot;</span> --output-file config/openapi-training.json
-<span class="o">!</span><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>. <span class="o">&amp;&amp;</span> hopeit_openapi create --config-files<span class="o">=</span>config/server.json,config/fraud-service.json --api-version<span class="o">=</span><span class="m">0</span>.0.1 --title<span class="o">=</span><span class="s2">&quot;Fraud POC Live Service&quot;</span> --description<span class="o">=</span><span class="s2">&quot;Fraud POC&quot;</span> --output-file config/openapi-service.json
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>nbdev_build_lib
+<span class="o">!</span><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>. <span class="o">&amp;&amp;</span> hopeit_openapi create --config-files<span class="o">=</span>config/server.json,config/training-pipeline.json --api-version<span class="o">=</span><span class="m">0</span>.0.2 --title<span class="o">=</span><span class="s2">&quot;Fraud POC Training Pipeline&quot;</span> --description<span class="o">=</span><span class="s2">&quot;Fraud POC&quot;</span> --output-file config/openapi-training.json
+<span class="o">!</span><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>. <span class="o">&amp;&amp;</span> hopeit_openapi create --config-files<span class="o">=</span>config/server.json,config/fraud-service.json --api-version<span class="o">=</span><span class="m">0</span>.0.2 --title<span class="o">=</span><span class="s2">&quot;Fraud POC Live Service&quot;</span> --description<span class="o">=</span><span class="s2">&quot;Fraud POC&quot;</span> --output-file config/openapi-service.json
+<span class="o">!</span>nbdev_build_docs
 </pre></div>
 
     </div>
@@ -61,22 +62,33 @@ Converted 06_submit-training-pipeline.ipynb.
 Converted 07_prepare-db.ipynb.
 Converted 08_predict.ipynb.
 Converted 09_find-orders.ipynb.
+Converted 20_diagramas.ipynb.
 Converted 99_tools.ipynb.
 Converted index.ipynb.
-2020-07-09 11:19:40,773 | INFO | hopeit.engine 0.1.0 openapi leos13 11669 | [hopeit.cli.openapi] openapi.update | 
-2020-07-09 11:19:40,773 | INFO | hopeit.engine 0.1.0 openapi leos13 11669 | [hopeit.server.api] Creating Open API spec... | 
-2020-07-09 11:19:40,773 | INFO | hopeit.engine 0.1.0 openapi leos13 11669 | [hopeit.server.api] API: openapi=3.0.3, API version=0.0.1 | 
-2020-07-09 11:19:40,823 | INFO | hopeit.engine 0.1.0 openapi leos13 11669 | [hopeit.server.api] Registering apps... | 
-2020-07-09 11:19:40,824 | INFO | hopeit.engine 0.1.0 openapi leos13 11669 | [hopeit.server.api] Updating API spec for app=fraud_poc.0x0x1_training... | 
-2020-07-09 11:19:41,255 | INFO | hopeit.engine 0.1.0 openapi leos13 11669 | [hopeit.server.api] Set API version=0.0.1... | 
-2020-07-09 11:19:41,255 | INFO | hopeit.engine 0.1.0 openapi leos13 11669 | [hopeit.server.api] Saving api spec to api_file=config/openapi-training.json... | 
-2020-07-09 11:19:41,810 | INFO | hopeit.engine 0.1.0 openapi leos13 11673 | [hopeit.cli.openapi] openapi.update | 
-2020-07-09 11:19:41,810 | INFO | hopeit.engine 0.1.0 openapi leos13 11673 | [hopeit.server.api] Creating Open API spec... | 
-2020-07-09 11:19:41,810 | INFO | hopeit.engine 0.1.0 openapi leos13 11673 | [hopeit.server.api] API: openapi=3.0.3, API version=0.0.1 | 
-2020-07-09 11:19:41,840 | INFO | hopeit.engine 0.1.0 openapi leos13 11673 | [hopeit.server.api] Registering apps... | 
-2020-07-09 11:19:41,840 | INFO | hopeit.engine 0.1.0 openapi leos13 11673 | [hopeit.server.api] Updating API spec for app=fraud_poc.0x0x1_service... | 
-2020-07-09 11:19:42,590 | INFO | hopeit.engine 0.1.0 openapi leos13 11673 | [hopeit.server.api] Set API version=0.0.1... | 
-2020-07-09 11:19:42,590 | INFO | hopeit.engine 0.1.0 openapi leos13 11673 | [hopeit.server.api] Saving api spec to api_file=config/openapi-service.json... | 
+2021-05-19 08:31:55,606 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83741 | [hopeit.cli.openapi] openapi.update | 
+2021-05-19 08:31:55,606 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83741 | [hopeit.server.api] Creating Open API spec... | 
+2021-05-19 08:31:55,606 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83741 | [hopeit.server.api] API: openapi=3.0.3, API version=0.0.1 | 
+2021-05-19 08:31:55,657 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83741 | [hopeit.server.api] Registering apps... | 
+2021-05-19 08:31:55,657 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83741 | [hopeit.server.api] Updating API spec for app=fraud_poc.training... | 
+2021-05-19 08:31:56,167 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83741 | [hopeit.server.api] Set API version=0.0.1... | 
+2021-05-19 08:31:56,167 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83741 | [hopeit.server.api] Saving api spec to api_file=config/openapi-training.json... | 
+2021-05-19 08:31:56,818 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83742 | [hopeit.cli.openapi] openapi.update | 
+2021-05-19 08:31:56,818 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83742 | [hopeit.server.api] Creating Open API spec... | 
+2021-05-19 08:31:56,818 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83742 | [hopeit.server.api] API: openapi=3.0.3, API version=0.0.1 | 
+2021-05-19 08:31:56,853 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83742 | [hopeit.server.api] Registering apps... | 
+2021-05-19 08:31:56,854 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83742 | [hopeit.server.api] Updating API spec for app=fraud_poc.service... | 
+2021-05-19 08:31:57,528 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83742 | [hopeit.server.api] Set API version=0.0.1... | 
+2021-05-19 08:31:57,528 | INFO | hopeit.engine 0.3.0rc8 openapi ALT00617 83742 | [hopeit.server.api] Saving api spec to api_file=config/openapi-service.json... | 
+converting: /Users/dev/leosmerling/fraud-poc/01_create-sample-data.ipynb
+converting: /Users/dev/leosmerling/fraud-poc/08_predict.ipynb
+converting: /Users/dev/leosmerling/fraud-poc/06_submit-training-pipeline.ipynb
+converting: /Users/dev/leosmerling/fraud-poc/09_find-orders.ipynb
+converting: /Users/dev/leosmerling/fraud-poc/03_feature-calc.ipynb
+converting: /Users/dev/leosmerling/fraud-poc/00_jobs.ipynb
+converting: /Users/dev/leosmerling/fraud-poc/05_train-model.ipynb
+converting: /Users/dev/leosmerling/fraud-poc/99_tools.ipynb
+converting: /Users/dev/leosmerling/fraud-poc/04_training-data.ipynb
+converting: /Users/dev/leosmerling/fraud-poc/02_preprocess.ipynb
 </pre>
 </div>
 </div>

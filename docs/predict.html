@@ -1,12 +1,14 @@
 ---
 
-title: Title
+title: Live Predict
+
 
 keywords: fastai
 sidebar: home_sidebar
 
-
-
+summary: "This module implements the POST endpoint for the Fraud Prediction Service. It can be invoked with an Order payload,"
+description: "This module implements the POST endpoint for the Fraud Prediction Service. It can be invoked with an Order payload,"
+nb_path: "08_predict.ipynb"
 ---
 <!--
 
@@ -20,22 +22,6 @@ sidebar: home_sidebar
 
 <div class="container" id="notebook-container">
         
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Live-Predict">Live Predict<a class="anchor-link" href="#Live-Predict"> </a></h3><blockquote><p>This module implements the POST endpoint for the Fraud Prediction Service. It can be invoked with an Order payload,
-then this steps will retrieve concurrently features calculated on customer_id and email, update the features using received order information on the fly, and predict is_fraud label using trained XGBoost model.</p>
-</blockquote>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -138,7 +124,7 @@ then this steps will retrieve concurrently features calculated on customer_id an
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="lookup_features" class="doc_header"><code>lookup_features</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/live/predict.py#L91" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lookup_features</code>(<strong><code>order</code></strong>:<a href="/fraud_poc/predict#OrderInfo"><code>OrderInfo</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
+<h4 id="lookup_features" class="doc_header"><code>lookup_features</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/live/predict.py#L91" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lookup_features</code>(<strong><code>order</code></strong>:<a href="/fraud_poc/predict.html#OrderInfo"><code>OrderInfo</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
 </blockquote>
 
 </div>
@@ -213,6 +199,13 @@ then this steps will retrieve concurrently features calculated on customer_id an
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Test-from-notebook">Test from notebook<a class="anchor-link" href="#Test-from-notebook"> </a></h3>
@@ -259,12 +252,85 @@ then this steps will retrieve concurrently features calculated on customer_id an
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>2020-08-08 08:37:44,104 | INFO | fraud-poc 0.0.1-service live.predict leos13 9132 | __init_event__ module=fraud_poc.live.predict... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-08-08T08:37:44.104693+00:00
-2020-08-08 08:37:44,105 | INFO | fraud-poc 0.0.1-service live.predict leos13 9132 | Loading model for prediction from ./data/model/xgb/latest-ok.pkl... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-08-08T08:37:44.104693+00:00
-2020-08-08 08:37:44,107 | INFO | fraud-poc 0.0.1-service live.predict leos13 9132 | Connecting to database redis://localhost:6379... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-08-08T08:37:44.104693+00:00
-2020-08-08 08:37:44,109 | INFO | fraud-poc 0.0.1-service live.predict leos13 9132 | Looking up features in database... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-08-08T08:37:44.104693+00:00
+<pre>2020-07-08 11:37:25,377 | INFO | fraud-poc 0.0.1-service live.predict leo-legion 38272 | __init_event__ module=fraud_poc.live.predict... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T11:37:25.377008+00:00
+2020-07-08 11:37:25,377 | INFO | fraud-poc 0.0.1-service live.predict leo-legion 38272 | Loading model for prediction from ./data/model/xgb/latest-ok.pkl... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T11:37:25.377008+00:00
+2020-07-08 11:37:25,382 | INFO | fraud-poc 0.0.1-service live.predict leo-legion 38272 | Connecting to database redis://localhost:6379... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T11:37:25.377008+00:00
+2020-07-08 11:37:25,384 | INFO | fraud-poc 0.0.1-service live.predict leo-legion 38272 | Looking up features in database... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-08T11:37:25.377008+00:00
 </pre>
 </div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;order_id&#39;: &#39;bb2de6c6-d655-4e75-8949-4ed792c024e5&#39;,
+ &#39;order_date&#39;: &#39;2020-07-08T11:37:25.376310+00:00&#39;,
+ &#39;customer_id&#39;: &#39;d555b585-5511-4a16-9f22-819834110239&#39;,
+ &#39;ip_addr&#39;: &#39;test&#39;,
+ &#39;order_amount&#39;: 100.0,
+ &#39;email&#39;: &#39;1f5d34b02ef1975d5a82dcfe2e53fad6182e118c&#39;,
+ &#39;customer_id_by_email&#39;: [&#39;d555b585-5511-4a16-9f22-819834110239&#39;],
+ &#39;num_customer_id_by_email&#39;: 1,
+ &#39;last_customer_id_by_email&#39;: &#39;d555b585-5511-4a16-9f22-819834110239&#39;,
+ &#39;same_customer_id_by_email&#39;: 1,
+ &#39;known_customer_id_by_email&#39;: 1,
+ &#39;order_amount_mean_by_email&#39;: 438.30120590151927,
+ &#39;order_amount_std_by_email&#39;: 274.2623429763596,
+ &#39;order_amount_min_by_email&#39;: 13.426760485169664,
+ &#39;order_amount_max_by_email&#39;: 879.7319538388477,
+ &#39;order_amount_sum_by_email&#39;: 4383.012059015193,
+ &#39;order_amount_by_email&#39;: [387.7647884248259,
+  100.0,
+  202.94798232836487,
+  13.426760485169664,
+  591.5459546297528,
+  879.7319538388477,
+  722.9025680336106,
+  627.8375917324881,
+  249.78620396645113,
+  607.0682555756823],
+ &#39;key&#39;: &#39;d555b585-5511-4a16-9f22-819834110239&#39;,
+ &#39;email_by_customer_id&#39;: [&#39;63552fd2e3d7e9e71e761c50f8b7ff1c07f39abb&#39;,
+  &#39;d33cfd28bb631654b8e59ac97a958555ad39ea78&#39;,
+  &#39;1f5d34b02ef1975d5a82dcfe2e53fad6182e118c&#39;,
+  &#39;239b8d32e104be4b7c0cc65e2cbc1ead42522578&#39;],
+ &#39;ip_addr_by_customer_id&#39;: [&#39;4efa50345ed594d6f817f909e1b60473cb9d6c39&#39;,
+  &#39;5c30206672cf95de1e41294ef3391a0f369e5fc8&#39;,
+  &#39;6f63bf7b774f8594744b5d1fc17a0e1c43cfd809&#39;,
+  &#39;785cd9911322a86079b9446e895b535490171a75&#39;,
+  &#39;1404f14e3e04cdbbfadcd3ea70f014226bb9ac26&#39;,
+  &#39;270e3d5cf5ddfde308b19442e225f8c3b9251ecc&#39;,
+  &#39;test&#39;],
+ &#39;num_email_by_customer_id&#39;: 4,
+ &#39;num_ip_addr_by_customer_id&#39;: 7,
+ &#39;last_email_by_customer_id&#39;: &#39;63552fd2e3d7e9e71e761c50f8b7ff1c07f39abb&#39;,
+ &#39;last_ip_addr_by_customer_id&#39;: &#39;5c30206672cf95de1e41294ef3391a0f369e5fc8&#39;,
+ &#39;same_email_by_customer_id&#39;: 0,
+ &#39;same_ip_addr_by_customer_id&#39;: 0,
+ &#39;known_email_by_customer_id&#39;: 1,
+ &#39;known_ip_addr_by_customer_id&#39;: 1,
+ &#39;order_amount_mean_by_customer_id&#39;: 418.2469834416056,
+ &#39;order_amount_std_by_customer_id&#39;: 259.19292283459004,
+ &#39;order_amount_min_by_customer_id&#39;: 100.0,
+ &#39;order_amount_max_by_customer_id&#39;: 879.7319538388477,
+ &#39;order_amount_sum_by_customer_id&#39;: 4182.469834416056,
+ &#39;order_amount_by_customer_id&#39;: [100.0,
+  453.97520881198227,
+  648.5861853978612,
+  591.5459546297528,
+  879.7319538388477,
+  305.8898989967592,
+  690.3395151993851,
+  147.61131120991155,
+  214.33601894031463,
+  150.4537873912415],
+ &#39;location_lat&#39;: 0.0,
+ &#39;location_long&#39;: 0.0,
+ &#39;is_fraud&#39;: 0.542777955532074}</pre>
+</div>
+
 </div>
 
 </div>

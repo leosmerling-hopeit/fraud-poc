@@ -104,6 +104,44 @@ jupyter lab
     * `fraud-service.json` and `openapi-service.json` configure a service to perform real-time predictions on new orders based on the training model and aggregated data
     
 
+#### Training Pipeline
+
+As a result of configuration in `config/training-config.json` plus implemented Python modules generated from Notebooks 00* to 07, the following training pipeline is implemented:
+
+```python
+pipeline_diagram
+```
+
+
+
+
+![svg](docs/images/output_5_0.svg)
+
+
+
+There are two entry points:
+
+* make_sample_data: endpoint to create sample data and trigger the pipeline steps.
+* submit_training_pipleine: endpoint to trigger pipeline steps from already existing data
+
+#### Inference Service
+
+As configured in `fraud-service.json` with events implementes in notebooks 08* to 09*, there is a resulting service with two endpoints:
+
+```python
+service_diagram
+```
+
+
+
+
+![svg](docs/images/output_8_0.svg)
+
+
+
+* live.predict: endpoint required to enter order information and return predictions and calculated feature values.
+* test.find_orders: it's a helper endpoint to find random generated orders to be used in this example
+
 ### Data processing and training pipeline
 
 * To run training pipeline service:

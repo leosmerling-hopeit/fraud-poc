@@ -1,12 +1,14 @@
 ---
 
-title: Title
+title: Training Data Preparation
+
 
 keywords: fastai
 sidebar: home_sidebar
 
-
-
+summary: "This module reads features computed on customer_id and email, merges both datasets, obtain `is_fraud` label for orders and creates two dataset that are suitable to train the model:"
+description: "This module reads features computed on customer_id and email, merges both datasets, obtain `is_fraud` label for orders and creates two dataset that are suitable to train the model:"
+nb_path: "04_training-data.ipynb"
 ---
 <!--
 
@@ -20,21 +22,6 @@ sidebar: home_sidebar
 
 <div class="container" id="notebook-container">
         
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Training-Data-Preparation">Training Data Preparation<a class="anchor-link" href="#Training-Data-Preparation"> </a></h3><blockquote><p>This module reads features computed on customer_id and email, merges both datasets, obtain <code>is_fraud</code> label for orders and creates two dataset that are suitable to train the model:&gt;1) Sampled: a dataset that contains all transactions marked as fraud, plus a subsample of the non fraud orders, in order to obtain a less-imbalanced dataset and train faster&gt; 2) Validation:a dataset containing only most recent orders, containing all fraud and non fraud transactions to be use as a final validation for the trained model.</p>
-</blockquote>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -74,7 +61,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="run" class="doc_header"><code>run</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/data/training_data.py#L63" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>run</code>(<strong><code>job</code></strong>:<a href="/fraud_poc/jobs#FeatureCalcJob"><code>FeatureCalcJob</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
+<h4 id="run" class="doc_header"><code>run</code><a href="https://github.com/leosmerling/fraud_poc/tree/master/fraud_poc/data/training_data.py#L63" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>run</code>(<strong><code>job</code></strong>:<a href="/fraud_poc/jobs.html#FeatureCalcJob"><code>FeatureCalcJob</code></a>, <strong><code>context</code></strong>:<code>EventContext</code>)</p>
 </blockquote>
 
 </div>
@@ -83,6 +70,13 @@ sidebar: home_sidebar
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -119,8 +113,8 @@ sidebar: home_sidebar
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>2020-07-07 22:36:58,442 | INFO | fraud-poc 0.0.1-training data.training-data leo-legion 18704 | Saving sampled training dataset to ./data/training/sampled/... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-07T22:36:57.211612+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
-2020-07-07 22:37:43,979 | INFO | fraud-poc 0.0.1-training data.training-data leo-legion 18704 | Saving weighted validation dataset to ./data/training/validation/... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2020-07-07T22:36:57.211612+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
+<pre>2021-05-18 20:28:12,444 | INFO | fraud-poc training data.training-data ALT00617 75610 | Saving sampled training dataset to ./data/training/sampled/... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2021-05-18T20:28:11.484283+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
+2021-05-18 20:28:14,091 | INFO | fraud-poc training data.training-data ALT00617 75610 | Saving weighted validation dataset to ./data/training/validation/... | track.operation_id=test_operation_id | track.request_id=test_request_id | track.request_ts=2021-05-18T20:28:11.484283+00:00 | stream.name= | stream.msg_id= | stream.consumer_group=
 </pre>
 </div>
 </div>
@@ -157,25 +151,6 @@ sidebar: home_sidebar
 
 <div class="output_wrapper">
 <div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>Task was destroyed but it is pending!
-task: &lt;Task pending name=&#39;Task-625&#39; coro=&lt;HTTP1ServerConnection._server_request_loop() running at /opt/dev/anaconda3/envs/dask/lib/python3.8/site-packages/tornado/http1connection.py:817&gt; wait_for=&lt;Future pending cb=[&lt;TaskWakeupMethWrapper object at 0x7fb0c8c25af0&gt;()]&gt; cb=[IOLoop.add_future.&lt;locals&gt;.&lt;lambda&gt;() at /opt/dev/anaconda3/envs/dask/lib/python3.8/site-packages/tornado/ioloop.py:690]&gt;
-Task was destroyed but it is pending!
-task: &lt;Task pending name=&#39;Task-630&#39; coro=&lt;HTTP1ServerConnection._server_request_loop() running at /opt/dev/anaconda3/envs/dask/lib/python3.8/site-packages/tornado/http1connection.py:817&gt; wait_for=&lt;Future pending cb=[&lt;TaskWakeupMethWrapper object at 0x7fb0a3fa0a60&gt;()]&gt; cb=[IOLoop.add_future.&lt;locals&gt;.&lt;lambda&gt;() at /opt/dev/anaconda3/envs/dask/lib/python3.8/site-packages/tornado/ioloop.py:690]&gt;
-Task was destroyed but it is pending!
-task: &lt;Task pending name=&#39;Task-631&#39; coro=&lt;HTTP1ServerConnection._server_request_loop() running at /opt/dev/anaconda3/envs/dask/lib/python3.8/site-packages/tornado/http1connection.py:817&gt; wait_for=&lt;Future pending cb=[&lt;TaskWakeupMethWrapper object at 0x7fb0a3f29ac0&gt;()]&gt; cb=[IOLoop.add_future.&lt;locals&gt;.&lt;lambda&gt;() at /opt/dev/anaconda3/envs/dask/lib/python3.8/site-packages/tornado/ioloop.py:690]&gt;
-Task was destroyed but it is pending!
-task: &lt;Task pending name=&#39;Task-632&#39; coro=&lt;HTTP1ServerConnection._server_request_loop() running at /opt/dev/anaconda3/envs/dask/lib/python3.8/site-packages/tornado/http1connection.py:817&gt; wait_for=&lt;Future pending cb=[&lt;TaskWakeupMethWrapper object at 0x7fb0a3fa0e50&gt;()]&gt; cb=[IOLoop.add_future.&lt;locals&gt;.&lt;lambda&gt;() at /opt/dev/anaconda3/envs/dask/lib/python3.8/site-packages/tornado/ioloop.py:690]&gt;
-Task was destroyed but it is pending!
-task: &lt;Task pending name=&#39;Task-633&#39; coro=&lt;HTTP1ServerConnection._server_request_loop() running at /opt/dev/anaconda3/envs/dask/lib/python3.8/site-packages/tornado/http1connection.py:817&gt; wait_for=&lt;Future pending cb=[&lt;TaskWakeupMethWrapper object at 0x7fb0a3fa0b20&gt;()]&gt; cb=[IOLoop.add_future.&lt;locals&gt;.&lt;lambda&gt;() at /opt/dev/anaconda3/envs/dask/lib/python3.8/site-packages/tornado/ioloop.py:690]&gt;
-Task was destroyed but it is pending!
-task: &lt;Task pending name=&#39;Task-645&#39; coro=&lt;RequestHandler._execute() running at /opt/dev/anaconda3/envs/dask/lib/python3.8/site-packages/tornado/web.py:1703&gt; wait_for=&lt;Future pending cb=[&lt;TaskWakeupMethWrapper object at 0x7fb0a4114190&gt;()]&gt; cb=[_HandlerDelegate.execute.&lt;locals&gt;.&lt;lambda&gt;() at /opt/dev/anaconda3/envs/dask/lib/python3.8/site-packages/tornado/web.py:2333]&gt;
-</pre>
-</div>
-</div>
 
 <div class="output_area">
 
@@ -225,195 +200,195 @@ task: &lt;Task pending name=&#39;Task-645&#39; coro=&lt;RequestHandler._execute(
   <tbody>
     <tr>
       <th>count</th>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
       <td>...</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
-      <td>1072089.0</td>
-      <td>1.072089e+06</td>
-      <td>1.072089e+06</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
+      <td>188.0</td>
+      <td>188.000000</td>
+      <td>188.000000</td>
     </tr>
     <tr>
       <th>mean</th>
-      <td>5.267080e+02</td>
-      <td>2.160165e+00</td>
-      <td>3.119257e+00</td>
-      <td>5.705758e-01</td>
-      <td>4.602976e-01</td>
-      <td>9.707590e-01</td>
-      <td>8.614052e-01</td>
-      <td>5.012814e+02</td>
-      <td>2.656489e+02</td>
-      <td>1.001119e+02</td>
+      <td>524.606828</td>
+      <td>1.755319</td>
+      <td>2.138298</td>
+      <td>0.361702</td>
+      <td>0.250000</td>
+      <td>0.569149</td>
+      <td>0.446809</td>
+      <td>511.480117</td>
+      <td>159.316375</td>
+      <td>319.896259</td>
       <td>...</td>
-      <td>9.895568e-01</td>
-      <td>5.018918e+02</td>
-      <td>2.634956e+02</td>
-      <td>1.052752e+02</td>
-      <td>8.979406e+02</td>
-      <td>4.789087e+03</td>
-      <td>8.804055e-01</td>
+      <td>0.569149</td>
+      <td>524.794925</td>
+      <td>113.340613</td>
+      <td>396.771221</td>
+      <td>657.255252</td>
+      <td>1047.595948</td>
+      <td>0.941489</td>
       <td>1.0</td>
-      <td>9.901491e-01</td>
-      <td>1.927834e-01</td>
+      <td>0.999470</td>
+      <td>0.234043</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>2.759189e+02</td>
-      <td>1.013540e+00</td>
-      <td>1.369770e+00</td>
-      <td>4.949942e-01</td>
-      <td>4.984215e-01</td>
-      <td>1.684815e-01</td>
-      <td>3.455234e-01</td>
-      <td>9.665022e+01</td>
-      <td>5.215631e+01</td>
-      <td>9.980408e+01</td>
+      <td>281.567721</td>
+      <td>0.955549</td>
+      <td>1.193575</td>
+      <td>0.481776</td>
+      <td>0.434169</td>
+      <td>0.496518</td>
+      <td>0.498490</td>
+      <td>207.981474</td>
+      <td>123.908393</td>
+      <td>245.276464</td>
       <td>...</td>
-      <td>1.016568e-01</td>
-      <td>9.983118e+01</td>
-      <td>5.651710e+01</td>
-      <td>1.096340e+02</td>
-      <td>1.074631e+02</td>
-      <td>1.212657e+03</td>
-      <td>3.244870e-01</td>
+      <td>0.496518</td>
+      <td>231.650609</td>
+      <td>123.329541</td>
+      <td>276.938429</td>
+      <td>272.226871</td>
+      <td>692.482507</td>
+      <td>0.235333</td>
       <td>0.0</td>
-      <td>5.692438e-03</td>
-      <td>3.944846e-01</td>
+      <td>0.000314</td>
+      <td>0.424529</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>1.560899e-03</td>
-      <td>1.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>1.001237e+00</td>
-      <td>0.000000e+00</td>
-      <td>2.271392e-04</td>
+      <td>0.402291</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.402291</td>
+      <td>0.000000</td>
+      <td>0.402291</td>
       <td>...</td>
-      <td>0.000000e+00</td>
-      <td>3.408705e-02</td>
-      <td>0.000000e+00</td>
-      <td>2.271392e-04</td>
-      <td>3.408705e-02</td>
-      <td>3.408705e-02</td>
-      <td>0.000000e+00</td>
+      <td>0.000000</td>
+      <td>0.402291</td>
+      <td>0.000000</td>
+      <td>0.402291</td>
+      <td>0.402291</td>
+      <td>0.402291</td>
+      <td>0.000000</td>
       <td>1.0</td>
-      <td>9.802699e-01</td>
-      <td>0.000000e+00</td>
+      <td>0.998941</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>25%</th>
-      <td>2.959992e+02</td>
-      <td>1.000000e+00</td>
-      <td>2.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>4.384200e+02</td>
-      <td>2.375031e+02</td>
-      <td>3.050219e+01</td>
+      <td>346.147602</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>398.643346</td>
+      <td>36.087890</td>
+      <td>134.578503</td>
       <td>...</td>
-      <td>1.000000e+00</td>
-      <td>4.383146e+02</td>
-      <td>2.362462e+02</td>
-      <td>3.125854e+01</td>
-      <td>8.618774e+02</td>
-      <td>4.216201e+03</td>
-      <td>1.000000e+00</td>
+      <td>0.000000</td>
+      <td>353.471786</td>
+      <td>0.000000</td>
+      <td>167.206097</td>
+      <td>438.680258</td>
+      <td>520.862094</td>
+      <td>1.000000</td>
       <td>1.0</td>
-      <td>9.852614e-01</td>
-      <td>0.000000e+00</td>
+      <td>0.999246</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>50%</th>
-      <td>5.319706e+02</td>
-      <td>2.000000e+00</td>
-      <td>3.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>5.021227e+02</td>
-      <td>2.701232e+02</td>
-      <td>7.207299e+01</td>
+      <td>491.724897</td>
+      <td>2.000000</td>
+      <td>2.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>522.281127</td>
+      <td>190.593451</td>
+      <td>281.717170</td>
       <td>...</td>
-      <td>1.000000e+00</td>
-      <td>5.028616e+02</td>
-      <td>2.695697e+02</td>
-      <td>7.425120e+01</td>
-      <td>9.296629e+02</td>
-      <td>4.922503e+03</td>
-      <td>1.000000e+00</td>
+      <td>1.000000</td>
+      <td>511.262158</td>
+      <td>136.818371</td>
+      <td>350.677562</td>
+      <td>728.436786</td>
+      <td>938.823950</td>
+      <td>1.000000</td>
       <td>1.0</td>
-      <td>9.901895e-01</td>
-      <td>0.000000e+00</td>
+      <td>0.999501</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>75%</th>
-      <td>7.665151e+02</td>
-      <td>3.000000e+00</td>
-      <td>4.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>5.661961e+02</td>
-      <td>3.000172e+02</td>
-      <td>1.407146e+02</td>
+      <td>793.608032</td>
+      <td>2.000000</td>
+      <td>3.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>653.541265</td>
+      <td>281.174204</td>
+      <td>462.674445</td>
       <td>...</td>
-      <td>1.000000e+00</td>
-      <td>5.675166e+02</td>
-      <td>2.998108e+02</td>
-      <td>1.457638e+02</td>
-      <td>9.703124e+02</td>
-      <td>5.584035e+03</td>
-      <td>1.000000e+00</td>
+      <td>1.000000</td>
+      <td>701.530790</td>
+      <td>249.284494</td>
+      <td>624.516786</td>
+      <td>925.829980</td>
+      <td>1454.151908</td>
+      <td>1.000000</td>
       <td>1.0</td>
-      <td>9.951112e-01</td>
-      <td>0.000000e+00</td>
+      <td>0.999753</td>
+      <td>1.000000</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>9.999995e+02</td>
-      <td>7.000000e+00</td>
-      <td>1.000000e+01</td>
-      <td>1.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>1.000000e+00</td>
-      <td>9.999918e+02</td>
-      <td>4.982714e+02</td>
-      <td>9.999918e+02</td>
+      <td>997.119448</td>
+      <td>5.000000</td>
+      <td>6.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>989.953833</td>
+      <td>413.698024</td>
+      <td>989.953833</td>
       <td>...</td>
-      <td>1.000000e+00</td>
-      <td>9.999918e+02</td>
-      <td>4.982714e+02</td>
-      <td>9.999918e+02</td>
-      <td>9.999995e+02</td>
-      <td>8.915618e+03</td>
-      <td>1.000000e+00</td>
+      <td>1.000000</td>
+      <td>995.144205</td>
+      <td>413.698024</td>
+      <td>995.144205</td>
+      <td>999.276104</td>
+      <td>3007.250422</td>
+      <td>1.000000</td>
       <td>1.0</td>
-      <td>9.999744e-01</td>
-      <td>1.000000e+00</td>
+      <td>0.999994</td>
+      <td>1.000000</td>
     </tr>
   </tbody>
 </table>
@@ -494,193 +469,193 @@ task: &lt;Task pending name=&#39;Task-645&#39; coro=&lt;RequestHandler._execute(
   <tbody>
     <tr>
       <th>count</th>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.00000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
       <td>...</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.000000</td>
-      <td>229899.0</td>
-      <td>229899.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.000000</td>
+      <td>42.0</td>
+      <td>42.000000</td>
     </tr>
     <tr>
       <th>mean</th>
-      <td>499.575716</td>
-      <td>2.157073</td>
-      <td>3.111566</td>
-      <td>0.572934</td>
-      <td>0.464047</td>
-      <td>0.972679</td>
-      <td>0.867242</td>
-      <td>499.597151</td>
-      <td>267.026925</td>
-      <td>97.229817</td>
+      <td>531.340590</td>
+      <td>1.690476</td>
+      <td>2.02381</td>
+      <td>0.357143</td>
+      <td>0.238095</td>
+      <td>0.547619</td>
+      <td>0.357143</td>
+      <td>515.845594</td>
+      <td>185.447372</td>
+      <td>311.285556</td>
       <td>...</td>
-      <td>499.416451</td>
-      <td>264.900245</td>
-      <td>101.846350</td>
-      <td>897.765100</td>
-      <td>4777.521732</td>
-      <td>0.785497</td>
-      <td>0.892153</td>
-      <td>0.990291</td>
+      <td>560.438991</td>
+      <td>124.731174</td>
+      <td>430.621161</td>
+      <td>702.370350</td>
+      <td>997.584484</td>
+      <td>0.880952</td>
+      <td>0.976190</td>
+      <td>0.999446</td>
       <td>1.0</td>
-      <td>5.000183</td>
+      <td>4.785714</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>288.783726</td>
-      <td>1.012125</td>
-      <td>1.365872</td>
-      <td>0.494653</td>
-      <td>0.498707</td>
-      <td>0.163017</td>
-      <td>0.339314</td>
-      <td>96.555412</td>
-      <td>51.819866</td>
-      <td>97.441246</td>
+      <td>264.341622</td>
+      <td>0.840676</td>
+      <td>0.99971</td>
+      <td>0.484966</td>
+      <td>0.431081</td>
+      <td>0.503761</td>
+      <td>0.484966</td>
+      <td>171.878141</td>
+      <td>129.856514</td>
+      <td>215.511969</td>
       <td>...</td>
-      <td>99.781962</td>
-      <td>55.895181</td>
-      <td>106.629882</td>
-      <td>107.388765</td>
-      <td>1202.931560</td>
-      <td>0.410478</td>
-      <td>0.310188</td>
-      <td>0.005683</td>
+      <td>217.599570</td>
+      <td>139.248552</td>
+      <td>264.615976</td>
+      <td>263.050340</td>
+      <td>558.305630</td>
+      <td>0.327770</td>
+      <td>0.154303</td>
+      <td>0.000333</td>
       <td>0.0</td>
-      <td>3.162667</td>
+      <td>2.841639</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>0.004208</td>
+      <td>80.334187</td>
       <td>1.000000</td>
-      <td>1.000000</td>
+      <td>1.00000</td>
       <td>0.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
-      <td>0.457344</td>
+      <td>80.334187</td>
       <td>0.000000</td>
-      <td>0.000227</td>
+      <td>57.086638</td>
       <td>...</td>
-      <td>0.295380</td>
+      <td>80.334187</td>
       <td>0.000000</td>
-      <td>0.000227</td>
-      <td>0.295380</td>
-      <td>0.295380</td>
+      <td>80.334187</td>
+      <td>80.334187</td>
+      <td>80.334187</td>
       <td>0.000000</td>
       <td>0.000000</td>
-      <td>0.980270</td>
+      <td>0.998948</td>
       <td>1.0</td>
       <td>0.000000</td>
     </tr>
     <tr>
       <th>25%</th>
-      <td>254.207715</td>
+      <td>420.356323</td>
       <td>1.000000</td>
-      <td>2.000000</td>
+      <td>1.00000</td>
       <td>0.000000</td>
       <td>0.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>437.617167</td>
-      <td>239.067854</td>
-      <td>29.753422</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>466.393298</td>
+      <td>102.186373</td>
+      <td>164.200450</td>
       <td>...</td>
-      <td>435.394575</td>
-      <td>238.285830</td>
-      <td>30.483997</td>
-      <td>862.305111</td>
-      <td>4199.806490</td>
+      <td>433.396839</td>
+      <td>0.000000</td>
+      <td>246.722547</td>
+      <td>462.674445</td>
+      <td>570.021621</td>
       <td>1.000000</td>
       <td>1.000000</td>
-      <td>0.985520</td>
+      <td>0.999238</td>
       <td>1.0</td>
-      <td>2.000000</td>
+      <td>3.500000</td>
     </tr>
     <tr>
       <th>50%</th>
-      <td>505.215247</td>
+      <td>607.866511</td>
       <td>2.000000</td>
-      <td>3.000000</td>
-      <td>1.000000</td>
+      <td>2.00000</td>
+      <td>0.000000</td>
       <td>0.000000</td>
       <td>1.000000</td>
-      <td>1.000000</td>
-      <td>501.715618</td>
-      <td>271.648605</td>
-      <td>70.648778</td>
+      <td>0.000000</td>
+      <td>581.472604</td>
+      <td>226.378341</td>
+      <td>281.717170</td>
       <td>...</td>
-      <td>500.704623</td>
-      <td>271.126161</td>
-      <td>71.581809</td>
-      <td>930.681119</td>
-      <td>4909.946848</td>
+      <td>581.472604</td>
+      <td>119.807098</td>
+      <td>413.874710</td>
+      <td>813.828513</td>
+      <td>1030.247967</td>
       <td>1.000000</td>
       <td>1.000000</td>
-      <td>0.990526</td>
+      <td>0.999419</td>
       <td>1.0</td>
-      <td>5.000000</td>
+      <td>6.000000</td>
     </tr>
     <tr>
       <th>75%</th>
-      <td>755.731631</td>
-      <td>3.000000</td>
-      <td>4.000000</td>
+      <td>662.987751</td>
+      <td>2.000000</td>
+      <td>3.00000</td>
+      <td>1.000000</td>
+      <td>0.500000</td>
       <td>1.000000</td>
       <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>565.428195</td>
-      <td>301.652860</td>
-      <td>137.977865</td>
+      <td>596.497147</td>
+      <td>306.184266</td>
+      <td>468.373990</td>
       <td>...</td>
-      <td>565.241917</td>
-      <td>301.407646</td>
-      <td>141.064595</td>
-      <td>970.713671</td>
-      <td>5579.990289</td>
+      <td>766.321292</td>
+      <td>257.718198</td>
+      <td>717.698285</td>
+      <td>935.718323</td>
+      <td>1546.594138</td>
       <td>1.000000</td>
       <td>1.000000</td>
-      <td>0.995357</td>
+      <td>0.999798</td>
       <td>1.0</td>
-      <td>8.000000</td>
+      <td>7.000000</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>999.996485</td>
-      <td>7.000000</td>
-      <td>10.000000</td>
+      <td>958.691116</td>
+      <td>4.000000</td>
+      <td>4.00000</td>
       <td>1.000000</td>
       <td>1.000000</td>
       <td>1.000000</td>
       <td>1.000000</td>
-      <td>997.396879</td>
-      <td>498.271440</td>
-      <td>997.396879</td>
+      <td>891.351667</td>
+      <td>413.698024</td>
+      <td>891.351667</td>
       <td>...</td>
-      <td>997.812768</td>
-      <td>498.271440</td>
-      <td>997.812768</td>
-      <td>999.999489</td>
-      <td>8880.975814</td>
+      <td>958.691116</td>
+      <td>413.698024</td>
+      <td>958.691116</td>
+      <td>999.276104</td>
+      <td>2582.030538</td>
       <td>1.000000</td>
       <td>1.000000</td>
-      <td>0.999974</td>
+      <td>0.999994</td>
       <td>1.0</td>
       <td>10.000000</td>
     </tr>
@@ -706,7 +681,7 @@ task: &lt;Task pending name=&#39;Task-645&#39; coro=&lt;RequestHandler._execute(
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;./data/training/validation/&#39;</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">is_fraud</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">is_fraud</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">npartitions</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -763,124 +738,124 @@ task: &lt;Task pending name=&#39;Task-645&#39; coro=&lt;RequestHandler._execute(
   </thead>
   <tbody>
     <tr>
-      <th>55</th>
-      <td>eef0e5b1-9898-4c9a-8e92-81bac714a870</td>
-      <td>2020-03-18 06:20:25+00:00</td>
-      <td>afe4b272a5def9d9b3cd9d8ac9b6136bbe90ffe9</td>
-      <td>c7ee6b54b39b1b5edefa3aa85d24665ed8feadd5</td>
-      <td>547.086027</td>
-      <td>002d6c90-2680-494a-b65e-c969c48277c8</td>
-      <td>['afe4b272a5def9d9b3cd9d8ac9b6136bbe90ffe9', '...</td>
-      <td>['c7ee6b54b39b1b5edefa3aa85d24665ed8feadd5', '...</td>
-      <td>1</td>
-      <td>1</td>
-      <td>...</td>
-      <td>46.870327</td>
-      <td>698.002805</td>
-      <td>4037.924935</td>
-      <td>[259.83261171744243, 46.870327361839934, 630.1...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>2020-07-08 10:40:24.712622+00:00</td>
-      <td>0.993902</td>
-      <td>1</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>78</th>
-      <td>442b9d8c-fc9e-40a9-ae6d-442b8f222a73</td>
-      <td>2020-05-30 14:43:39+00:00</td>
-      <td>414a4d901fb5d28d0b794c0b145430a1b9eceffa</td>
-      <td>504395f5e6b0426c6e5917bd18a287abedb7d7f8</td>
-      <td>489.182172</td>
-      <td>003454f4-d2cc-4845-8256-15a7f639becc</td>
-      <td>['414a4d901fb5d28d0b794c0b145430a1b9eceffa', '...</td>
-      <td>['504395f5e6b0426c6e5917bd18a287abedb7d7f8', '...</td>
+      <th>66</th>
+      <td>9c2b6d93-32a7-45fa-ac40-a47059e4b7c4</td>
+      <td>2021-05-04 12:29:59+00:00</td>
+      <td>20d3a0d5ee5fce50d1cc660ea94e8fd6dc3e0d5d</td>
+      <td>804833f0387c5c3a0aed1218687be20d19e4aa15</td>
+      <td>222.106098</td>
+      <td>c6eb3cd2-93bc-413f-a0e9-61c71ab0d224</td>
+      <td>["5402e6915b106c264bd2bd7d7194e45d6de83091", "...</td>
+      <td>["29854c437e114323911562c081daa967fc2418a4", "...</td>
       <td>2</td>
       <td>2</td>
       <td>...</td>
-      <td>18.227239</td>
-      <td>811.657061</td>
-      <td>4416.252078</td>
-      <td>[510.21130492364875, 155.86290494965394, 491.4...</td>
+      <td>222.106098</td>
+      <td>222.106098</td>
+      <td>222.106098</td>
+      <td>[222.1060979147914]</td>
       <td>0</td>
       <td>1</td>
-      <td>2020-07-08 10:40:24.712622+00:00</td>
-      <td>0.997893</td>
+      <td>2021-05-18 20:28:12.411255+00:00</td>
+      <td>0.999236</td>
       <td>1</td>
-      <td>2</td>
+      <td>4</td>
     </tr>
     <tr>
-      <th>148</th>
-      <td>d01377a8-2b7f-45d9-bedb-d32a39af893e</td>
-      <td>2019-11-20 06:07:59+00:00</td>
-      <td>bf8edae2c642ce476fba0404cd48ebd306a9e331</td>
-      <td>331e631a8879c97c23fad416f8a96a9685f5186d</td>
-      <td>565.939878</td>
-      <td>005151c1-316c-4b11-a36e-16c495bc5528</td>
-      <td>['7fb135d0fbc29f0fe2b64fcab2ed929928f62aaf', '...</td>
-      <td>['f5f788c173e5c89122cb3502e2c1205dd00aa52d', '...</td>
+      <th>18</th>
+      <td>a489c647-bd28-456e-ab10-f4dde1151a20</td>
+      <td>2021-05-18 14:09:46+00:00</td>
+      <td>7d95a0edb3399a16e29f353350793a55489af201</td>
+      <td>3de6a5ab79cda5e3a73eff8a2bbb506dab451293</td>
+      <td>121.437929</td>
+      <td>2355ad27-ea68-4439-a085-1d294cc772ec</td>
+      <td>["7d95a0edb3399a16e29f353350793a55489af201", "...</td>
+      <td>["f898fbab3f673df0b0049098814b2ffabd277471", "...</td>
       <td>2</td>
       <td>4</td>
       <td>...</td>
-      <td>35.432090</td>
-      <td>800.632491</td>
-      <td>3813.130451</td>
-      <td>[102.4452576754118, 305.81444470653696, 468.17...</td>
+      <td>101.425959</td>
+      <td>928.822007</td>
+      <td>1151.685896</td>
+      <td>[928.8220074790162, 101.42595902612995, 121.43...</td>
       <td>0</td>
-      <td>0</td>
-      <td>2020-07-08 10:40:24.712622+00:00</td>
-      <td>0.987391</td>
       <td>1</td>
+      <td>2021-05-18 20:28:12.411255+00:00</td>
+      <td>0.999986</td>
       <td>1</td>
+      <td>6</td>
     </tr>
     <tr>
-      <th>300</th>
-      <td>e52cd433-60fe-428c-a027-1b86f084138b</td>
-      <td>2019-11-20 21:06:08+00:00</td>
-      <td>031a29720199b6e87af8abe6ac60d9725b920a88</td>
-      <td>199659be876d5da3b23132215225dcef9b8e64a0</td>
-      <td>969.332707</td>
-      <td>00d8e94f-f19f-4d6d-b225-ece8ca2e80a7</td>
-      <td>['031a29720199b6e87af8abe6ac60d9725b920a88', '...</td>
-      <td>['199659be876d5da3b23132215225dcef9b8e64a0', '...</td>
-      <td>5</td>
-      <td>6</td>
+      <th>20</th>
+      <td>b9df0d87-c37f-4837-a81e-27e23bedc4a8</td>
+      <td>2021-05-04 18:02:34+00:00</td>
+      <td>95d1b98298ff8558bebbcd5b68b81426d951dc9d</td>
+      <td>8d90d3f40f9b4c1974f42ba9cfb3f3513e55018a</td>
+      <td>801.040739</td>
+      <td>23925e34-a97b-4a39-9af7-556994f4de50</td>
+      <td>["c5a4b2c53a0f1060909717f27a26b6b611c6abac", "...</td>
+      <td>["e09327b09677fd88e72c6007d218ce042cba0f60", "...</td>
+      <td>3</td>
+      <td>3</td>
       <td>...</td>
-      <td>142.240825</td>
-      <td>969.332707</td>
-      <td>5138.391860</td>
-      <td>[228.43338205886343, 315.28410476759495, 641.1...</td>
+      <td>801.040739</td>
+      <td>801.040739</td>
+      <td>801.040739</td>
+      <td>[801.040738517752]</td>
       <td>0</td>
       <td>1</td>
-      <td>2020-07-08 10:40:24.712622+00:00</td>
-      <td>0.987425</td>
+      <td>2021-05-18 20:28:12.411255+00:00</td>
+      <td>0.999248</td>
       <td>1</td>
-      <td>5</td>
+      <td>6</td>
     </tr>
     <tr>
-      <th>354</th>
-      <td>ccb272c0-4c82-4719-ae5a-bcd6cda09962</td>
-      <td>2020-05-17 21:21:06+00:00</td>
-      <td>daf294993afcba23204d924db0139ecb1600f3ac</td>
-      <td>3750a44f6dcd89f0849caf09d12ad25e0a55305c</td>
-      <td>284.537458</td>
-      <td>00f9c62c-572d-46d1-b04f-bea893fbe0eb</td>
-      <td>['ac35cd18ba6c709b33cbb1da170a4405fb2836cf', '...</td>
-      <td>['826a6db07e5f5f62ba0f3263ff5b62a773573d77', '...</td>
-      <td>5</td>
-      <td>6</td>
-      <td>...</td>
-      <td>116.431429</td>
-      <td>946.398526</td>
-      <td>4239.615681</td>
-      <td>[208.65553859182018, 298.96564343692825, 650.7...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>2020-07-08 10:40:24.712622+00:00</td>
-      <td>0.997202</td>
+      <th>48</th>
+      <td>564739cb-f238-487f-8893-3f8a5c42afe9</td>
+      <td>2021-05-05 21:21:08+00:00</td>
+      <td>164e9cd15154ecf244a56d1afa9f7182e12eb038</td>
+      <td>dadd450850a73d8c87ffef6f6c183a7fd03105e0</td>
+      <td>80.334187</td>
+      <td>78378996-89c5-4667-bf77-50a7bcf3899a</td>
+      <td>["164e9cd15154ecf244a56d1afa9f7182e12eb038"]</td>
+      <td>["dadd450850a73d8c87ffef6f6c183a7fd03105e0"]</td>
       <td>1</td>
-      <td>7</td>
+      <td>1</td>
+      <td>...</td>
+      <td>80.334187</td>
+      <td>80.334187</td>
+      <td>80.334187</td>
+      <td>[80.33418734448439]</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2021-05-18 20:28:12.411255+00:00</td>
+      <td>0.999309</td>
+      <td>1</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>39560977-f66c-4be8-8ec7-00e6364fb253</td>
+      <td>2021-05-10 09:00:25+00:00</td>
+      <td>60fd02c90b468b96daf5d3244bdc62631c60e8e2</td>
+      <td>dcbc5797682d1a4aea5f17ef88627c2ab83501a7</td>
+      <td>350.677562</td>
+      <td>85fcce17-2788-481c-83e5-9be65a2219d9</td>
+      <td>["3c87bfd70bf46bfdda0e3324f3a03008a5ba7047", "...</td>
+      <td>["ab2348a4cf38fd70b3b39de17b2ae4d4c88d7ed0", "...</td>
+      <td>2</td>
+      <td>3</td>
+      <td>...</td>
+      <td>350.677562</td>
+      <td>999.276104</td>
+      <td>1349.953666</td>
+      <td>[999.2761039800785, 350.6775618423433]</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2021-05-18 20:28:12.411255+00:00</td>
+      <td>0.999548</td>
+      <td>1</td>
+      <td>8</td>
     </tr>
   </tbody>
 </table>

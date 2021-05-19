@@ -1,6 +1,17 @@
 {
   "fraud_poc": {
     "Overview": "/",
-    "Title": "/tools"
+    "Jobs Management": "jobs.html",
+    "Create Sample Data": "create-sample-data.html",
+    "Preprocessing": "preprocess.html",
+    "Feature calculation": "feature-calc.html",
+    "Training Data Preparation": "training-data.html",
+    "Train Model": "train-model.html",
+    "Submit training pipeline": "submit-training-pipeline.html",
+    "Prepare Database": "prepare-db.html",
+    "Live Predict": "predict.html",
+    "Find Orders": "find-orders.html",
+    "Diagrams": "diagramas.html",
+    "Title": "tools.html"
   }
 }

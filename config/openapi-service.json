@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "1.0",
-    "title": "Fraud POC Service",
-    "description": "Fraud POC Service"
+    "version": "0.1.0",
+    "title": "Fraud POC Live Service",
+    "description": "Fraud POC"
   },
   "paths": {
     "/api/fraud-poc/service/live/predict": {
