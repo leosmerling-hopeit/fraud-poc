@@ -34,7 +34,13 @@ index = {"get_client_async": "00_jobs.ipynb",
          "predict": "08_predict.ipynb",
          "__postprocess__": "08_predict.ipynb",
          "cur": "09_find-orders.ipynb",
-         "scan_db": "09_find-orders.ipynb"}
+         "scan_db": "09_find-orders.ipynb",
+         "Port": "20_diagramas.ipynb",
+         "Node": "20_diagramas.ipynb",
+         "Edge": "20_diagramas.ipynb",
+         "Graph": "20_diagramas.ipynb",
+         "PortMap": "20_diagramas.ipynb",
+         "draw_graph": "20_diagramas.ipynb"}
 
 modules = ["jobs.py",
            "data/make_sample_data.py",
@@ -45,7 +51,8 @@ modules = ["jobs.py",
            "submit_training_pipeline.py",
            "data/prepare_db.py",
            "live/predict.py",
-           "test/find_orders.py"]
+           "test/find_orders.py",
+           "diagrams.py"]
 
 doc_url = "https://leosmerling.github.io/fraud_poc/"
 

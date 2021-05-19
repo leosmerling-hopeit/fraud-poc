@@ -23,7 +23,7 @@ from ..live.predict import OrderInfo
 __steps__ = ['scan_db']
 
 __api__ = event_api(
-    title="Test: Find Orders",
+    summary="Test: Find Orders",
     query_args=[
         ("prefix", str, "Prefix for customer_id or email with * as a wildcard"),
         ("num_items", int, "Number of items to retrieve")

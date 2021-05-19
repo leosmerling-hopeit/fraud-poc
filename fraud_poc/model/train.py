@@ -19,7 +19,7 @@ from hopeit.app.events import Spawn, SHUFFLE
 from hopeit.app.api import event_api
 from hopeit.app.logger import app_logger
 
-from ..jobs import get_client, TrainModelJob, TrainingDataJob
+from ..jobs import get_client, get_client_async, TrainModelJob, TrainingDataJob
 
 # Cell
 __steps__ = ['setup', 'train_model', 'validate_model']

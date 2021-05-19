@@ -1,13 +1,14 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "0.0.1",
-    "title": "Fraud POC Live Service",
-    "description": "Fraud POC"
+    "version": "1.0",
+    "title": "Fraud POC Service",
+    "description": "Fraud POC Service"
   },
   "paths": {
-    "/api/fraud-poc/0x0x1-service/live/predict": {
+    "/api/fraud-poc/service/live/predict": {
       "post": {
+        "summary": "Live: Predict Fraud",
         "description": "Live: Predict Fraud",
         "parameters": [
           {
@@ -73,12 +74,13 @@
           }
         },
         "tags": [
-          "fraud_poc.0x0x1_service"
+          "fraud_poc.service"
         ]
       }
     },
-    "/api/fraud-poc/0x0x1-service/test/find-orders": {
+    "/api/fraud-poc/service/test/find-orders": {
       "get": {
+        "summary": "Test: Find Orders",
         "description": "Test: Find Orders",
         "parameters": [
           {
@@ -135,7 +137,7 @@
           }
         },
         "tags": [
-          "fraud_poc.0x0x1_service"
+          "fraud_poc.service"
         ]
       }
     }
@@ -181,6 +183,7 @@
             "type": "number"
           }
         },
+        "x-module-name": "fraud_poc.live.predict",
         "description": "OrderInfo(order_id: str, customer_id: str, order_date: datetime.datetime, email: str, ip_addr: str, order_amount: float, location_lat: float, location_long: float)"
       }
     },

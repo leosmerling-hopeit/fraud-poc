@@ -42,7 +42,7 @@ class OrderInfo:
 __steps__ = ['lookup_features', 'predict']
 
 __api__ = event_api(
-    title="Live: Predict Fraud",
+    summary="Live: Predict Fraud",
     payload=(OrderInfo, "Order Information"),
     responses={
         200: (dict, "features used for prediction contatining `is_fraud` field as result of prediction"),

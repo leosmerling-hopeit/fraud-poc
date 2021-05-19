@@ -1,7 +1,7 @@
 {
     "app": {
         "name": "fraud-poc",
-        "version": "0.0.1-training"
+        "version": "training"
     },
     "env": {
         "dask": {
@@ -28,15 +28,15 @@
     },
     "events": {
         "submit_training_pipeline": {
-            "type": "GET",
+            "type": "POST",
             "write_stream": {
-                "name": "{events.data.make-sample-data.write_stream.name}"
+                "name": "{auto}"
             }            
         },
         "data.make-sample-data" :{
-            "type": "GET",
+            "type": "POST",
             "write_stream": {
-                "name": "{auto}"
+                "name": "{events.submit_training_pipeline.write_stream.name}"
             },
             "config" : {
                 "stream" : {
