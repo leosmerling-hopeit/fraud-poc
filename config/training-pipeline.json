@@ -1,12 +1,12 @@
 {
     "app": {
         "name": "fraud-poc",
-        "version": "0.0.1-training"
+        "version": "training"
     },
     "env": {
         "dask": {
-            "_url": "tcp://localhost:8786",
-            "url": "local"
+            "url": "tcp://127.0.0.1:8786",
+            "_url": "local"
         },
         "data" : {
             "raw": "./data/raw",
@@ -28,15 +28,15 @@
     },
     "events": {
         "submit_training_pipeline": {
-            "type": "GET",
+            "type": "POST",
             "write_stream": {
-                "name": "{events.data.make-sample-data.write_stream.name}"
+                "name": "{auto}"
             }            
         },
         "data.make-sample-data" :{
-            "type": "GET",
+            "type": "POST",
             "write_stream": {
-                "name": "{auto}"
+                "name": "{events.submit_training_pipeline.write_stream.name}"
             },
             "config" : {
                 "stream" : {

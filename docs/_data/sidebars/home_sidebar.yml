@@ -10,8 +10,41 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
+      title: Jobs Management
+      url: jobs.html
+    - output: web,pdf
+      title: Create Sample Data
+      url: create-sample-data.html
+    - output: web,pdf
+      title: Preprocessing
+      url: preprocess.html
+    - output: web,pdf
+      title: Feature calculation
+      url: feature-calc.html
+    - output: web,pdf
+      title: Training Data Preparation
+      url: training-data.html
+    - output: web,pdf
+      title: Train Model
+      url: train-model.html
+    - output: web,pdf
+      title: Submit training pipeline
+      url: submit-training-pipeline.html
+    - output: web,pdf
+      title: Prepare Database
+      url: prepare-db.html
+    - output: web,pdf
+      title: Live Predict
+      url: predict.html
+    - output: web,pdf
+      title: Find Orders
+      url: find-orders.html
+    - output: web,pdf
+      title: Diagrams
+      url: diagramas.html
+    - output: web,pdf
       title: Title
-      url: /tools
+      url: tools.html
     output: web
     title: fraud_poc
   output: web

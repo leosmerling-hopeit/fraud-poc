@@ -24,7 +24,7 @@ from ..jobs import get_client_async, MakeSampleDataJob
 __steps__ = ['submit_job', SHUFFLE, 'make_batches']
 
 __api__ = event_api(
-    title="Data: Make sample data",
+    summary="Data: Make sample data",
     query_args=[
         ("num_batches", int, "Number of batches/files to make"),
         ("batch_size", int, "Number of rows per batch"),

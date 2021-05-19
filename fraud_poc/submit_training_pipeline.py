@@ -16,7 +16,7 @@ from .jobs import MakeSampleDataJob
 __steps__ = ['submit']
 
 __api__ = event_api(
-    title="Training: Submit training pipeline",
+    summary="Training: Submit training pipeline",
     query_args=[
         ("raw_path", str, "Path to source raw data")
     ],

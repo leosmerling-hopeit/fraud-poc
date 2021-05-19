@@ -1,7 +1,7 @@
 {
     "app": {
         "name": "fraud-poc",
-        "version": "0.0.1-service"
+        "version": "service"
     },
     "env": {
         "db": {

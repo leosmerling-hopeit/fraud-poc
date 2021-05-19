@@ -17,7 +17,7 @@ from hopeit.app.context import EventContext
 from hopeit.app.events import Spawn, SHUFFLE
 from hopeit.app.api import event_api
 from hopeit.app.logger import app_logger
-from hopeit.toolkit.storage.redis import RedisStorage
+from hopeit.redis_storage import RedisStorage
 
 from ..jobs import get_client, FeatureCalcJob, PrepareDbJob
 

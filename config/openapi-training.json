@@ -1,13 +1,14 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "0.0.1",
+    "version": "0.1.0",
     "title": "Fraud POC Training Pipeline",
     "description": "Fraud POC"
   },
   "paths": {
-    "/api/fraud-poc/0x0x1-training/submit-training-pipeline": {
-      "get": {
+    "/api/fraud-poc/training/submit-training-pipeline": {
+      "post": {
+        "summary": "Training: Submit training pipeline",
         "description": "Training: Submit training pipeline",
         "parameters": [
           {
@@ -52,12 +53,13 @@
           }
         },
         "tags": [
-          "fraud_poc.0x0x1_training"
+          "fraud_poc.training"
         ]
       }
     },
-    "/api/fraud-poc/0x0x1-training/data/make-sample-data": {
-      "get": {
+    "/api/fraud-poc/training/data/make-sample-data": {
+      "post": {
+        "summary": "Data: Make sample data",
         "description": "Data: Make sample data",
         "parameters": [
           {
@@ -147,7 +149,7 @@
           }
         },
         "tags": [
-          "fraud_poc.0x0x1_training"
+          "fraud_poc.training"
         ]
       }
     }
@@ -188,6 +190,7 @@
             "default": 0
           }
         },
+        "x-module-name": "fraud_poc.jobs",
         "description": "MakeSampleDataJob(path: str, num_batches: int = 0, batch_size: int = 0, batch_span_days: int = 0, num_customers: int = 0, num_emails: int = 0, num_ips: int = 0)"
       }
     },

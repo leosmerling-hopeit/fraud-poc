@@ -19,7 +19,7 @@ from hopeit.app.events import Spawn, SHUFFLE
 from hopeit.app.api import event_api
 from hopeit.app.logger import app_logger
 
-from ..jobs import get_client, TrainModelJob, TrainingDataJob
+from ..jobs import get_client, get_client_async, TrainModelJob, TrainingDataJob
 
 # Cell
 __steps__ = ['setup', 'train_model', 'validate_model']
@@ -86,7 +86,7 @@ def _score(y, y_pred, treshold=0.5):
 # Cell
 def train_model(job: TrainModelJob, context: EventContext) -> Optional[TrainModelJob]:
     from dask_ml.model_selection import train_test_split
-    client = get_client()
+    client = get_client(context)
     try:
         import dask_xgboost
         logger.info(context, f"Loading training data {job.train_data}...")
@@ -116,7 +116,7 @@ def train_model(job: TrainModelJob, context: EventContext) -> Optional[TrainMode
 def validate_model(job: TrainModelJob, context: EventContext) -> Optional[TrainModelJob]:
     logger.info(context, "Loading model for validation from {job.model_path}...")
     model = _load_model(job.model_path)
-    client = get_client()
+    client = get_client(context)
     try:
         import dask_xgboost
         logger.info(context, f"Loading validation data from {job.validation_data}...")
